@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-data-lake-to-ontap-nfs.html 
+keywords: requirements, proof of concept, AI, data mover, mapr 
+summary: '此用例基於我們所做的最大的金融客戶概念驗證（CPOC）。從歷史上看，我們使用NetApp就地分析模組 (NIPAM) 將分析資料移至NetApp ONTAP AI。然而，由於最近的增強和NetApp XCP 性能的提高以及獨特的NetApp資料移動器解決方案方法，我們使用NetApp XCP 重新運行了資料遷移。' 
+---
+= 資料湖到ONTAP NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+此用例基於我們所做的最大的金融客戶概念驗證（CPOC）。從歷史上看，我們使用NetApp就地分析模組 (NIPAM) 將分析資料移至NetApp ONTAP AI。然而，由於最近的增強和NetApp XCP 性能的提高以及獨特的NetApp資料移動器解決方案方法，我們使用NetApp XCP 重新運行了資料遷移。
+
+
+
+== 客戶挑戰和要求
+
+值得注意的客戶挑戰和要求包括以下內容：
+
+* 客戶擁有不同類型的數據，包括結構化、非結構化和半結構化數據、日誌以及數據湖中的機器對機器數據。人工智慧系統需要處理所有這些類型的數據以進行預測操作。當資料位於資料湖原生檔案系統中時，處理起來很困難。
+* 客戶的AI架構無法存取Hadoop分散式檔案系統（HDFS）和Hadoop相容檔案系統（HCFS）的數據，因此這些數據無法用於AI操作。  AI 需要採用可理解的檔案系統格式（例如 NFS）的資料。
+* 由於資料量龐大、吞吐量高，需要一些特殊的流程將資料從資料湖中移動，並且需要一種經濟有效的方法將資料移至AI系統。
+
+
+
+
+== 數據移動器解決方案
+
+在此解決方案中，MapR 檔案系統 (MapR-FS) 是從 MapR 叢集中的本機磁碟建立的。 MapR NFS 閘道在每個資料節點上配置虛擬 IP。檔案伺服器服務儲存和管理MapR-FS資料。 NFS 閘道使 Map-FS 資料可以透過虛擬 IP 從 NFS 用戶端存取。每個 MapR 資料節點上都執行一個 XCP 實例，以將資料從 Map NFS 閘道傳輸到NetApp ONTAP NFS。每個 XCP 實例將一組特定的來源資料夾傳輸到目標位置。
+
+下圖說明了使用 XCP 的 MapR 叢集的NetApp資料移動器解決方案。
+
+image:xcp-bp-030.png["此圖顯示輸入/輸出對話框或表示書面內容"]
+
+有關詳細的客戶使用案例、錄製的演示和測試結果，請參閱link:https://blog.netapp.com/data-migration-xcp["使用 XCP 將資料從資料湖和高效能運算移至ONTAP NFS"^]部落格.
+
+有關使用NetApp XCP 將 MapR-FS 資料移至ONTAP NFS 的詳細步驟，請參閱link:https://docs.netapp.com/us-en/netapp-solutions-ai/data-analytics/bda-ai-introduction.html["TR-4732：大數據分析與人工智慧^"^]。

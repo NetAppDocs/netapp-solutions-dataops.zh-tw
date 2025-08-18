@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-hpc.html 
+keywords: use case, gpfs, nfs 
+summary: 我們使用NetApp XCP 將資料從 GPFS 遷移到 NFS，以便 GPU 可以處理資料。  AI 通常處理來自網路檔案系統的資料。 
+---
+= 高效能運算到ONTAP NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+此用例基於現場組織的請求。一些NetApp客戶將其資料置於高效能運算環境中，這為訓練模型提供了資料分析，並使研究機構能夠洞察和理解大量數位資料。 NetApp現場工程師需要詳細的程序將資料從 IBM 的 GPFS 提取到 NFS。我們使用NetApp XCP 將資料從 GPFS 遷移到 NFS，以便 GPU 可以處理資料。  AI 通常處理來自網路檔案系統的資料。
+
+有關高效能計算到ONTAP NFS 用例、錄製的演示和測試結果的更多信息，請參閱 https://blog.netapp.com/data-migration-xcp["使用 XCP 將資料從資料湖和高效能運算移至ONTAP NFS"^]部落格.
+
+有關使用NetApp XCP 將 MapR-FS 資料移至ONTAP NFS 的詳細步驟，請參閱附錄 A：GPFS 到 NFS — 詳細步驟link:https://docs.netapp.com/us-en/netapp-solutions-ai/data-analytics/bda-ai-introduction.html["這裡"^]。

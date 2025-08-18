@@ -1,0 +1,30 @@
+= 
+:allow-uri-read: 
+
+
+. Ansible 控制節點的要求：
++
+.. 安裝了以下軟體包的 Ubuntu/Debian 機器：
++
+... Python3
+... Pip3
+... Ansible（版本高於 2.10.0）
+... Git
+
+
+
+
+
+
+如果您有一台新的 Ubuntu/Debian 機器，但沒有安裝上述要求，請按照以下步驟將機器設定為 Ansible 控制節點：
+
+. 將下面的內容貼到終端機中
++
+[source, cli]
+----
+sudo apt-get -y install python3 >> outputlog.txt
+sudo apt-get -y install python3-pip >> outputlog.txt
+python3 -W ignore -m pip --disable-pip-version-check install ansible >> outputlog.txt
+sudo apt-get -y install git >> outputlog.txt
+----
+

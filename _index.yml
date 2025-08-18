@@ -1,0 +1,28 @@
+---
+indexpage:
+  title: NetApp資料管理解決方案
+  summary: NetApp解決方案是一套策略和技術能力，強調NetApp產品和服務組合來支援客戶最關鍵的業務需求。
+  lead: NetApp解決方案是一套策略和技術能力，強調NetApp產品和服務組合來支援客戶最關鍵的業務需求。
+  tiles:
+  - title: 開始
+    links:
+    - title: 什麼是新的
+      url: "/whats-new.html"
+  - title: 資料遷移和資料保護
+    links:
+    - title: 使用網路保險庫保護數據
+      url: "/cyber-vault/ontap-cyber-vault-overview.html"
+    - title: 使用NetApp XCP 遷移數據
+      url: "/xcp/xcp-bp-introduction.html"
+  - title: 解決方案自動化
+    links:
+    - title: 介紹
+      url: "/automation/automation-introduction.html"
+  - title: 解決方案請求和回饋
+    links:
+    - title: 請求自動化
+      url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Request%20Automation]%0d%0a%0d%0aSolution%20Name:%20%0d%0aRequest%20Title:%20%0d%0aDescription:%0d%0aSuggestions:&title=Request%20Automation%20-%20%3Crequest_title%3E
+    - title: 提出新的解決方案
+      url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Request%20Solution]%0d%0a%0d%0aSolution%20Use%20Case:%20%0d%0aSolution%20Description:%20%0d%0aAdditional%20Comments:&title=Request%20Solution%20-%20%3Csolution%3E
+    - title: 提供解決方案回饋
+      url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Solution%20Feedback]%0d%0a%0d%0aSolution%20Name:%20%0d%0aSolution%20Feedback:%20%0d%0aAdditional%20Comments:&title=Solution%20Feedback%20-%20%3Csolution%3E

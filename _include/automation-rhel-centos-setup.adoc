@@ -1,0 +1,46 @@
+= 
+:allow-uri-read: 
+
+
+. Ansible 控制節點的要求：
++
+.. 安裝了以下軟體包的 RHEL/CentOS 機器：
++
+... Python3
+... Pip3
+... Ansible（版本高於 2.10.0）
+... Git
+
+
+
+
+
+
+如果您有一台新的 RHEL/CentOS 機器，但沒有安裝上述要求，請依照下列步驟將機器設定為 Ansible 控制節點：
+
+. 為 RHEL-8/RHEL-7 啟用 Ansible 儲存庫
++
+.. 對於 RHEL-8（以 root 身分執行以下命令）
++
+[source, cli]
+----
+subscription-manager repos --enable ansible-2.9-for-rhel-8-x86_64-rpms
+----
+.. 對於 RHEL-7（以 root 身分執行以下命令）
++
+[source, cli]
+----
+subscription-manager repos --enable rhel-7-server-ansible-2.9-rpms
+----
+
+
+. 將以下內容貼到終端機中
++
+[source, cli]
+----
+sudo yum -y install python3 >> install.log
+sudo yum -y install python3-pip >> install.log
+python3 -W ignore -m pip --disable-pip-version-check install ansible >> install.log
+sudo yum -y install git >> install.log
+----
+

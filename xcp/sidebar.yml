@@ -1,0 +1,47 @@
+---
+section: bp-xcp
+title: 使用NetApp XCP 進行資料遷移
+pdf-filename: 使用NetApp XCP 進行資料遷移
+entries:
+- title: 介紹
+  url: "/xcp/xcp-bp-introduction.html"
+- title: NetApp XCP
+  url: "/xcp/xcp-bp-netapp-xcp-overview.html"
+- title: 遷移工作流程
+  url: "/xcp/xcp-bp-migration-workflow.html"
+- title: 文件分析
+  url: "/xcp/xcp-bp-file-analytics.html"
+- title: 部署步驟
+  url: "/xcp/xcp-bp-deployment-steps.html"
+- title: 尺寸指南
+  url: "/xcp/xcp-bp-sizing-guidelines.html"
+- title: 效能調優
+  url: "/xcp/xcp-bp-performance-tuning.html"
+- title: 客戶場景
+  entries:
+  - title: 概況
+    url: "/xcp/xcp-bp-scenarios.html"
+  - title: 資料湖到ONTAP NFS
+    url: "/xcp/xcp-bp-data-lake-to-ontap-nfs.html"
+  - title: 高效能運算到ONTAP NFS
+    url: "/xcp/xcp-bp-hpc.html"
+  - title: 使用 XCP Data Mover 將數百萬個小檔案遷移到彈性存儲
+    url: "/xcp/xcp-bp-small-files.html"
+  - title: 使用 XCP 資料移動器遷移大文件
+    url: "/xcp/xcp-bp-large-files.html"
+  - title: 重複文件
+    url: "/xcp/xcp-bp-duplicate-files.html"
+  - title: 基於特定日期的資料掃描和複製
+    url: "/xcp/xcp-bp-specific-date.html"
+  - title: 從 SMB/CIFS 共用建立 CSV 文件
+    url: "/xcp/xcp-bp-smb-cifs-csv.html"
+  - title: 從 7-模式到ONTAP 的資料遷移
+    url: "/xcp/xcp-bp-7-mode.html"
+  - title: 使用 ACL 將 CIFS 資料從來源儲存箱遷移到ONTAP
+    url: "/xcp/xcp-bp-cifs-acls.html"
+- title: 最佳實踐指南和建議
+  url: "/xcp/xcp-bp-best-practices.html"
+- title: 故障排除
+  url: "/xcp/xcp-bp-troubleshooting.html"
+- title: 在哪裡可以找到更多信息
+  url: "/xcp/xcp-additional-info.html"

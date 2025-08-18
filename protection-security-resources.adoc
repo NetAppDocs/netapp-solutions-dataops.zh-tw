@@ -1,0 +1,54 @@
+---
+sidebar: sidebar 
+permalink: protection-security-resources.html 
+keywords: 'netapp, solutions, data management, what"s new, updates, change log' 
+summary: 與資料保護和安全相關的附加技術報告。 
+---
+= 資料保護和安全的額外資源
+:allow-uri-read: 
+:icons: font
+:imagesdir: ./media/
+
+
+[role="lead"]
+請查看以下連結以取得與資料保護和安全相關的技術報告。
+
+
+
+== NVA-1143： NetApp HCI - NIST 針對 FISMA 的安全控制以及針對多租戶基礎架構的 HyTrust - NVA 設計和部署
+
+Arvind Ramakrishnan、Abhinav Singh、 NetApp
+
+NVA-1143 描述如何設計和部署NetApp HCI以滿足美國國家標準與技術研究院 (NIST) SP 800-53 修訂版 4 安全和隱私控制，這對於私有雲基礎架構和多租戶部署至關重要。
+
+link:https://www.netapp.com/pdf.html?item=/media/17065-nva1143pdf.pdf["NVA-1143： NetApp HCI - NIST 針對 FISMA 的安全控制以及針對多租戶基礎架構的 HyTrust - NVA 設計和部署"^]
+
+
+
+== TR-4320： NetApp E 系列和 Commvault 資料平台 V11 - 參考架構和儲存最佳實踐
+
+Akash Gupta、 NetApp Girish Chanchlani、Commvault
+
+TR-4320 概述了在 Commvault 資料平台 V11 環境中使用NetApp E 系列儲存時的參考架構和最佳實務。  Commvault 和NetApp共同開發了此參考架構，為使用NetApp E 系列儲存的 Commvault 資料平台 V11 部署提供指導，從而加快此解決方案的應用時間。
+
+link:https://www.netapp.com/pdf.html?item=/media/17042-tr4320pdf.pdf["TR-4320： NetApp E 系列和 Commvault 資料平台 V11 - 參考架構和儲存最佳實踐"^]
+
+
+
+== TR-4471：E 系列和 EF 系列參考架構以及 Veeam Backup & Replication 9.5 的儲存最佳實踐
+
+Akash Gupta， NetApp Shawn Lieu（美洲）、Stefan Renner（歐洲、中東和非洲）和 Michael Cade（表演），Veeam
+
+TR-4471 概述了在 Veeam Backup & Replication 9.5 環境中使用NetApp E 系列儲存時的參考架構和最佳實務。
+
+link:https://www.netapp.com/pdf.html?item=/media/17159-tr4471pdf.pdf["TR-4471：E 系列和 EF 系列參考架構以及 Veeam Backup  Replication 9.5 的儲存最佳實踐"^]
+
+
+
+== TR-4704：使用NetApp E 系列儲存部署 Veritas NetBackup
+
+Akash Gupta 和 Principled Technologies， NetApp
+
+TR-4704 描述了在NetApp E 系列儲存上部署 Veritas NetBackup。
+
+link:https://www.netapp.com/pdf.html?item=/media/16433-tr-4704pdf.pdf["TR-4704：使用NetApp E 系列儲存部署 Veritas NetBackup"^]

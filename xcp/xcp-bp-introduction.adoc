@@ -1,0 +1,19 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-introduction.html 
+keywords: tr-4863, 4863, tr4863, xcp, best practices, data mover, migration 
+summary: 本文檔提供了NetApp XCP 最佳實務指南和基於測試場景的解決方案。這些最佳實踐涵蓋了本地和雲端的遷移工作流程、檔案系統分析、故障排除和 XCP 的效能調整。 
+---
+= TR-4863： NetApp XCP 最佳實務指南 - 資料移動器、檔案移轉與分析
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+Karthikeyan Nagalingam， NetApp
+
+[role="lead"]
+本文檔提供了NetApp XCP 最佳實務指南和基於測試場景的解決方案。這些最佳實踐涵蓋了本地和雲端的遷移工作流程、檔案系統分析、故障排除和 XCP 效能調整。測試場景部分涵蓋客戶用例及其要求、使用 XCP 的NetApp解決方案以及對客戶的好處。

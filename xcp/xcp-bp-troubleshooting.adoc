@@ -1,0 +1,60 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-troubleshooting.html 
+keywords: troubleshooting, problems, error 70, 
+summary: 本節提供使用NetApp XCP 進行資料遷移的故障排除指導。 
+---
+= 故障排除
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節提供使用NetApp XCP 進行資料遷移的故障排除指導。
+
+
+
+== 錯誤 1：XCP 失敗，nfs3 錯誤 70：xcp.log 中的陳舊檔案句柄錯誤
+
+*原因和指導。 *
+
+掛載來源資料夾並驗證該資料夾是否存在。如果它不存在或已被刪除，您將收到 `stale filehandle`錯誤，在這種情況下，您可以忽略該錯誤。
+
+
+
+== 錯誤 2： NetApp NFS 目標磁碟區有空間，但 XCP 因 nfs3 錯誤 28 而失敗：裝置上沒有剩餘空間
+
+*原因和指導。 *
+
+. 執行以下命令檢查 NFS 目標磁碟區的空間 `df`命令或檢查存儲。
++
+....
+root@workr-140: USER3# df -h /xcpdest
+Filesystem                 Size  Used Avail Use% Mounted on
+10.63.150.127:/xcpsrc_vol  4.3T  1.7T  2.6T  40% /xcpsrc_vol
+....
+. 檢查儲存控制器中的 inode。
++
+....
+A800-Node1-2::> volume show -volume xcpdest -fields files,files-used
+vserver        volume  files    files-used
+-------------- ------- -------- ----------
+A800-Node1_vs1 xcpdest 21251126 21251126
+A800-Node1-2::>
+....
+. 如果使用了 inode，請執行以下命令增加 inode 的數量：
++
+....
+A800-Node1-2::> volume modify -volume xcpdest -vserver A800-Node1_vs1 -files 40000000
+Volume modify successful on volume xcpdest of Vserver A800-Node1_vs1.
+A800-Node1-2::> volume show -volume xcpdest -fields files,files-used
+vserver        volume  files    files-used
+-------------- ------- -------- ----------
+A800-Node1_vs1 xcpdest 39999990 21251126
+A800-Node1-2::>
+....
+

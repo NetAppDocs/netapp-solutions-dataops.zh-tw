@@ -1,0 +1,401 @@
+---
+sidebar: sidebar 
+permalink: automation/fsxn-monitoring-resizing.html 
+keywords: AWS, FSX, FSx ONTAP, automation, FSx ONTAP monitoring, FSx ONTAP automation, FSx ONTAP resizing, FSx ONTAP monitoring, FSx ONTAP monitoring 
+summary: 本頁介紹了監控 AWS FSx ONTAP和根據閾值自動調整大小的自動化。 
+---
+= 使用 AWS Lambda 函數進行 FSx ONTAP監控和自動調整大小
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+本頁介紹了監控 AWS FSx ONTAP和根據閾值自動調整大小的自動化。
+
+
+
+== 概述：透過 AWS Lambda 函數監控和自動調整 FSx ONTAP
+
+FSx ONTAP是 AWS 上的第一方企業級雲端儲存服務，它基於流行的NetApp ONTAP檔案系統構建，提供高度可靠、可擴展、高效且功能豐富的文件儲存。
+
+FSx ONTAP提供無縫的部署和管理體驗。無需任何儲存專業知識即可開始使用。為了簡化監控，可以使用 AWS lambda 函數（根據閾值自動調整總儲存容量、磁碟區大小或 LUN 大小）。  本文檔提供了建立自動化設定的逐步指南，定期監控 FSx ONTAP ，在超過使用者指定的閾值時發出通知並調整大小，並通知管理員調整大小活動。
+
+.特徵
+[%collapsible%open]
+====
+此解決方案提供以下功能：
+
+* 監控能力：
++
+** FSx ONTAP整體儲存容量的使用情況
+** 每個磁碟區的使用情況（精簡配置/厚配置）
+** 每個 LUN 的使用情況（精簡配置/厚配置）
+
+
+* 當超出使用者定義的閾值時，可以調整上述任何一項的大小
+* 透過電子郵件接收使用警告和調整大小通知的警報機制
+* 能夠刪除超過使用者定義閾值的快照
+* 能夠取得相關FlexClone磁碟區和快照的列表
+* 能夠定期監控檢查
+* 無論是否連接到互聯網，均可使用此解決方案
+* 可以手動部署或使用 AWS CloudFormation 範本進行部署
+* 能夠在單一 VPC 中監控多個 FSx ONTAP檔案系統
+
+
+====
+.先決條件
+[%collapsible%open]
+====
+在開始之前，請確保滿足以下先決條件：
+
+* FSx ONTAP已部署
+* 連接到 FSx ONTAP 的私有子網路
+* 已為 FSx ONTAP設定「fsxadmin」密碼
+
+
+====
+.進階架構
+[%collapsible%open]
+====
+* AWS Lambda 函數會向 FSx ONTAP發出 API 呼叫，以擷取和更新儲存容量、磁碟區和 LUN 的大小。
+* 「fsxadmin」密碼會以安全字串儲存在 AWS SSM 參數儲存中，以增加安全性。
+* AWS SES（簡單電子郵件服務）用於在發生調整大小事件時通知最終使用者。
+* 如果在沒有網際網路存取的 VPC 中部署解決方案，則會設定 AWS SSM、FSx 和 SES 的 VPC 端點，以允許 Lambda 透過 AWS 內部網路存取這些服務。
+
+
+image:fsxn-monitoring-resizing-architecture.png["該圖描述了該解決方案中使用的高階架構。"]
+
+====
+
+
+== 解決方案部署
+
+
+
+=== 自動部署
+
+
+NOTE: 涵蓋單一 FSx ONTAP檔案系統。
+
+請依照一系列步驟完成此解決方案的自動化部署：
+
+.步驟 1：複製 GitHub 儲存庫
+[%collapsible%open]
+====
+在本機系統上克隆 GitHub 儲存庫：
+
+[listing]
+----
+git clone https://github.com/NetApp/fsxn-monitoring-auto-resizing.git
+----
+====
+.步驟 2：設定 AWS S3 儲存桶
+[%collapsible%open]
+====
+. 導覽至 AWS 主控台 > *S3*，然後按一下 *建立儲存桶*。使用預設設定建立儲存桶。
+. 進入儲存桶後，按一下*上傳* > *新增檔案*，然後從系統上複製的 GitHub 儲存庫中選擇*Utilities.zip*。
++
+image:fsxn-monitoring-resizing-s3-upload-zip-files.png["此圖描繪了正在上傳 zip 檔案的 S3 窗口"]
+
+
+
+====
+.步驟 3：AWS SES SMTP 設定（如果沒有可用的互聯網訪問，則需要）
+[%collapsible%open]
+====
+如果您想在沒有網路存取的情況下部署解決方案，請按照此步驟操作（注意：設定 VPC 端點會產生額外的成本。）
+
+. 導覽至 AWS 主控台 > *AWS 簡單電子郵件服務 (SES)* > *SMTP 設定*，然後按一下 *建立 SMTP 憑證*
+. 輸入 IAM 使用者名稱或保留預設值，然後按一下「建立使用者」。儲存*SMTP 使用者名稱*和*SMTP 密碼*以供進一步使用。
++
+
+NOTE: 如果 SES SMTP 設定已到位，請跳過此步驟。
+
++
+image:fsxn-monitoring-resizing-ses-smtp-creds-add.png["此圖展示了 AWS SES 下的「建立 SMTP 憑證」窗口"]
+
+
+
+====
+.步驟 4：AWS CloudFormation 部署
+[%collapsible%open]
+====
+. 導覽至 AWS 主控台 > *CloudFormation* > 建立堆疊 > 使用新資源（標準）。
++
+[listing]
+----
+Prepare template: Template is ready
+Specify template: Upload a template file
+Choose file: Browse to the cloned GitHub repo and select fsxn-monitoring-solution.yaml
+----
++
+image:fsxn-monitoring-resizing-create-cft-001.png["此圖展示了 AWS CloudFormation 建立堆疊視窗"]
+
++
+點選下一步
+
+. 輸入堆疊詳細資訊。按一下“下一步”，選取“我承認 AWS CloudFormation 可能會建立 IAM 資源”複選框，然後按一下“提交”。
++
+
+NOTE: 如果「VPC 是否可以存取網際網路？」設定為 False，則需要「AWS SES 的 SMTP 使用者名稱」和「AWS SES 的 SMTP 密碼」。否則，它們可以留空。
+
++
+image:fsxn-monitoring-resizing-cft-stack-details-001.png["此圖描繪了 AWS CloudFormation 堆疊詳細資訊窗口"]
+
++
+image:fsxn-monitoring-resizing-cft-stack-details-002.png["此圖描繪了 AWS CloudFormation 堆疊詳細資訊窗口"]
+
++
+image:fsxn-monitoring-resizing-cft-stack-details-003.png["此圖描繪了 AWS CloudFormation 堆疊詳細資訊窗口"]
+
++
+image:fsxn-monitoring-resizing-cft-stack-details-004.png["此圖描繪了 AWS CloudFormation 堆疊詳細資訊窗口"]
+
+. 一旦 CloudFormation 部署開始，「寄件者電子郵件 ID」中提到的電子郵件 ID 將收到一封電子郵件，要求他們授權 AWS SES 使用該電子郵件地址。點擊連結來驗證電子郵件地址。
+. CloudFormation 堆疊部署完成後，如果有任何警告/通知，則會向收件者電子郵件 ID 發送一封包含通知詳細資訊的電子郵件。
++
+image:fsxn-monitoring-resizing-email-001.png["此圖顯示了有通知時收到的電子郵件通知"]
+
++
+image:fsxn-monitoring-resizing-email-002.png["此圖顯示了有通知時收到的電子郵件通知"]
+
+
+
+====
+
+
+=== 手動部署
+
+
+NOTE: 支援在單一 VPC 中監控多個 FSx ONTAP檔案系統。
+
+請按照一系列步驟完成此解決方案的手動部署：
+
+.步驟 1：複製 GitHub 儲存庫
+[%collapsible%open]
+====
+在本機系統上克隆 GitHub 儲存庫：
+
+[listing]
+----
+git clone https://github.com/NetApp/fsxn-monitoring-auto-resizing.git
+----
+====
+.步驟 2：AWS SES SMTP 設定（如果沒有可用的互聯網訪問，則需要）
+[%collapsible%open]
+====
+如果您想在沒有網路存取的情況下部署解決方案，請按照此步驟操作（注意：設定 VPC 端點會產生額外的成本。）
+
+. 導覽至 AWS 主控台 > *AWS 簡單電子郵件服務 (SES)* > SMTP 設置，然後按一下 *建立 SMTP 憑證*
+. 輸入 IAM 使用者名稱或保留預設值，然後按一下「建立」。保存使用者名稱和密碼以供進一步使用。
++
+image:fsxn-monitoring-resizing-ses-smtp-creds-add.png["此圖展示了 AWS SES 下的「建立 SMTP 憑證」窗口"]
+
+
+
+====
+.步驟 3：為 fsxadmin 密碼建立 SSM 參數
+[%collapsible%open]
+====
+導覽至 AWS 主控台 > *參數儲存*，然後按一下 *建立參數*。
+
+[listing]
+----
+Name: <Any name/path for storing fsxadmin password>
+Tier: Standard
+Type: SecureString
+KMS key source: My current account
+  KMS Key ID: <Use the default one selected>
+Value: <Enter the password for "fsxadmin" user configured on FSx ONTAP>
+----
+點選*建立參數*。對所有要監控的 FSx ONTAP檔案系統重複上述步驟。
+
+image:fsxn-monitoring-resizing-ssm-parameter.png["此圖描繪了 AWS 控制台上的 SSM 參數建立視窗。"]
+
+如果在沒有網路存取的情況下部署解決方案，請執行相同的步驟來儲存 smtp 使用者名稱和 smtp 密碼。否則，跳過新增這 2 個參數。
+
+====
+.步驟4：設定電子郵件服務
+[%collapsible%open]
+====
+導覽至 AWS 主控台 > *簡單電子郵件服務 (SES)*，然後按一下 *建立身分*。
+
+[listing]
+----
+Identity type: Email address
+Email address: <Enter an email address to be used for sending resizing notifications>
+----
+點選*建立身份*
+
+「寄件者電子郵件 ID」中提到的電子郵件 ID 將收到一封電子郵件，要求擁有者授權 AWS SES 使用該電子郵件地址。點擊連結來驗證電子郵件地址。
+
+image:fsxn-monitoring-resizing-ses.png["此圖描繪了 AWS 控制台上的 SES 身分建立視窗。"]
+
+====
+.步驟 5：設定 VPC 端點（如果沒有網路存取則必需）
+[%collapsible%open]
+====
+
+NOTE: 僅在沒有網路存取的情況下部署時才需要。  VPC 端點會產生額外費用。
+
+. 導覽至 AWS 主控台 > *VPC* > *Endpoints*，然後按一下 *Create Endpoint* 並輸入下列詳細資料：
++
+[listing]
+----
+Name: <Any name for the vpc endpoint>
+Service category: AWS Services
+Services: com.amazonaws.<region>.fsx
+vpc: <select the vpc where lambda will be deployed>
+subnets: <select the subnets where lambda will be deployed>
+Security groups: <select the security group>
+Policy: <Either choose Full access or set your own custom policy>
+----
++
+點選建立端點。
+
++
+image:fsxn-monitoring-resizing-vpc-endpoint-create-001.png["此圖描繪了 VPC 端點創建窗口"]
+
++
+image:fsxn-monitoring-resizing-vpc-endpoint-create-002.png["此圖描繪了 VPC 端點創建窗口"]
+
+. 依照相同的流程建立 SES 和 SSM VPC 端點。除服務分別對應於 *com.amazonaws.<region>.smtp* 和 *com.amazonaws.<region>.ssm* 外，所有參數均與上述相同。
+
+
+====
+.步驟 6：建立並設定 AWS Lambda 函數
+[%collapsible%open]
+====
+. 導覽至 AWS 主控台 > *AWS Lambda* > *函數*，然後按一下與 FSx ONTAP位於相同區域的 *建立函數*
+. 使用預設的*從頭開始的作者*並更新以下欄位：
++
+[listing]
+----
+Function name: <Any name of your choice>
+Runtime: Python 3.9
+Architecture: x86_64
+Permissions: Select "Create a new role with basic Lambda permissions"
+Advanced Settings:
+  Enable VPC: Checked
+    VPC: <Choose either the same VPC as FSx ONTAP or a VPC that can access both FSx ONTAP and the internet via a private subnet>
+    Subnets: <Choose 2 private subnets that have NAT gateway attached pointing to public subnets with internet gateway and subnets that have internet access>
+    Security Group: <Choose a Security Group>
+----
++
+點選*建立函數*。
+
++
+image:fsxn-monitoring-resizing-lambda-creation-001.png["此圖描繪了 AWS 控制台上的 Lambda 建立視窗。"]
+
++
+image:fsxn-monitoring-resizing-lambda-creation-002.png["此圖描繪了 AWS 控制台上的 Lambda 建立視窗。"]
+
+. 導覽至新建立的 Lambda 函數 > 向下捲動至 *Layers* 部分並點選 *Add a layer*。
++
+image:fsxn-monitoring-resizing-add-layer-button.png["此圖描繪了 AWS Lambda 函數控制台上的新增層按鈕。"]
+
+. 點擊“圖層來源”下的“建立新圖層”
+. 建立一個圖層並上傳*Utilities.zip*檔案。選擇 *Python 3.9* 作為相容的運行時，然後按一下 *建立*。
++
+image:fsxn-monitoring-resizing-create-layer-paramiko.png["此圖描繪了 AWS 控制台上的「建立新圖層」視窗。"]
+
+. 導覽回 AWS Lambda 函數 > *新增層* > *自訂層*並新增實用程式層。
++
+image:fsxn-monitoring-resizing-add-layer-window.png["此圖描繪了 AWS Lambda 函數控制台上的新增層視窗。"]
+
++
+image:fsxn-monitoring-resizing-layers-added.png["此圖描述了 AWS Lambda 函數控制台上新增的層。"]
+
+. 導覽至 Lambda 函數的 *配置* 選項卡，然後按一下 *常規配置* 下的 *編輯*。將逾時變更為*5 分鐘*，然後按一下*儲存*。
+. 導覽至 Lambda 函數的 *Permissions* 標籤並點選指派的角色。在角色的權限標籤中，按一下*新增權限*>*建立內聯策略*。
++
+.. 點擊 JSON 標籤並貼上來自 GitHub 儲存庫的檔案 policy.json 的內容。
+.. 將每個出現的 ${AWS::AccountId} 替換為您的帳戶 ID，然後按一下 *審核政策*
+.. 為策略提供一個名稱，然後按一下“建立策略”
+
+
+. 將 *fsxn_monitoring_resizing_lambda.py* 的內容從 git repo 複製到 AWS Lambda 函數程式碼來源部分中的 *lambda_function.py*。
+. 在與 lambda_function.py 同級創建一個新文件，並將其命名為 *vars.py*，並將 vars.py 的內容從 git repo 複製到 lambda 函數 vars.py 文件。更新 vars.py 中的變數值。參考下面的變數定義並點擊*部署*：
++
+|===
+
+
+| *姓名* | *類型* | *描述* 
+
+
+| *fsx列表* | 清單 | （必需）要監控的所有 FSx ONTAP檔案系統的清單。將所有檔案系統包含在清單中以進行監控和自動調整大小。 
+
+
+| *fsxMgmtIp* | 細繩 | （必要）從 AWS 上的 FSx ONTAP控制台輸入「管理端點 - IP 位址」。 
+
+
+| *fsxId* | 細繩 | （必要）從 AWS 上的 FSx ONTAP控制台輸入「檔案系統 ID」。 
+
+
+| *使用者名稱* | 細繩 | （必要）從 AWS 上的 FSx ONTAP控制台輸入 FSx ONTAP 「ONTAP管理員使用者名稱」。 
+
+
+| 調整閾值 | 整數 | （必填）輸入 0-100 之間的閾值百分比。此閾值將用於衡量儲存容量、磁碟區和 LUN 的使用情況，並且當任何使用率的百分比增加超過此閾值時，將發生調整大小活動。 
+
+
+| *fsx_password_ssm_參數* | 細繩 | （必填）輸入 AWS 參數儲存中用於儲存「fsxadmin」密碼的路徑名稱。 
+
+
+| *警告通知* | 布林值 | （必需）將此變數設為 True，以便在儲存容量/磁碟區/LUN 使用率超過 75% 但低於閾值時接收通知。 
+
+
+| 啟用快照刪除 | 布林值 | （必要）將此變數設為 True，以啟用早於「snapshot_age_threshold_in_days」中指定的值的磁碟區級快照刪除。 
+
+
+| 快照年齡閾值（以天為單位） | 整數 | （必填）輸入您要保留的磁碟區級快照的天數。任何早於所提供值的快照都將被刪除，並透過電子郵件通知。 
+
+
+| *網路存取* | 布林值 | （必需）如果可以從部署此 lambda 的子網路存取互聯網，則將此變數設為 True。否則將其設為 False。 
+
+
+| smtp 區域 | 細繩 | （可選）如果「internet_access」變數設定為 False，請輸入部署 lambda 的區域。例如 us-east-1（此格式） 
+
+
+| smtp_用戶名_ssm_參數 | 細繩 | （可選）如果「internet_access」變數設定為 False，請輸入 AWS 參數儲存中用於儲存 SMTP 使用者名稱的路徑名稱。 
+
+
+| smtp_password_ssm_參數 | 細繩 | （可選）如果「internet_access」變數設定為 False，請輸入 AWS Parameter Store 中用於儲存 SMTP 密碼的路徑名稱。 
+
+
+| *寄件者電子郵件* | 細繩 | （必填）輸入在 SES 上註冊的電子郵件 ID，lambda 函數將使用該 ID 發送與監控和調整大小相關的通知警報。 
+
+
+| *收件者電子郵件* | 細繩 | （必填）輸入您想要接收警報通知的電子郵件 ID。 
+|===
++
+image:fsxn-monitoring-resizing-lambda-code.png["此圖描述了 AWS Lambda 函數控制台上的 lambda 程式碼。"]
+
+. 點選*測試*，建立空的JSON物件的測試事件，點選*呼叫*執行測試，檢查腳本是否正常運作。
+. 測試成功後，導覽至 *配置* > *觸發器* > *新增觸發器*。
++
+[listing]
+----
+Select a Source: EventBridge
+Rule: Create a new rule
+Rule name: <Enter any name>
+Rule type: Schedule expression
+Schedule expression: <Use "rate(1 day)" if you want the function to run daily or add your own cron expression>
+----
++
+按一下“新增”。
+
++
+image:fsxn-monitoring-resizing-eventbridge.png["此圖描繪了 AWS Lambda 函數控制台上的事件橋建立視窗。"]
+
+
+
+====
+
+
+== 結論
+
+透過提供的解決方案，可以輕鬆設定監控解決方案，定期監控 FSx ONTAP存儲，根據使用者指定的閾值調整其大小並提供警報機制。這使得使用和監控 FSx ONTAP的流程變得無縫，使管理員可以專注於關鍵業務活動，同時儲存空間會在需要時自動成長。

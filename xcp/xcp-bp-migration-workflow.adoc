@@ -1,0 +1,53 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-migration-workflow.html 
+keywords: migration, workflow, nas, shares, copy, sync, truck, azure, expressroute 
+summary: 為了更好地規劃和完成遷移，遷移有不同的階段需要遵循。若要使用NetApp XCP 從第三方 NAS 儲存或直接連接的 NAS 匯出儲存遷移數據，請遵循本節提供的遷移指南。 
+---
+= 遷移工作流程
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+為了更好地規劃和完成遷移，遷移有不同的階段需要遵循。若要使用NetApp XCP 從第三方 NAS 儲存或直接連接的 NAS 匯出儲存遷移數據，請遵循本節提供的遷移指南。
+
+下圖說明了從任何 NAS 到NetApp NAS 的遷移工作流程。
+
+image:xcp-bp-003.png["此圖顯示輸入/輸出對話框或表示書面內容"]
+
+
+
+== 本地
+
+從任何 NAS 到NetApp NAS 的遷移工作流程包括以下步驟：
+
+. 發現 NAS 共享和數據。
+. 掃描資料並產生報告以了解資料的佈局。
+. 透過執行 XCP Copy 命令建立基線。為了更快地遷移，請選擇更多 XCP 實例並在子資料夾層級拆分工作負載以啟動並行遷移作業。
+. 對於增量更新，使用 XCP 同步，直到切換視窗的變化率較低。
+. 將來源標記為唯讀，透過執行 XCP 同步命令執行最終同步來完成遷移。
+. 若要驗證資料是否正確傳輸，請透過運行 `xcp verify`命令。
+
+
+
+
+== 雲端
+
+對於雲，如果本地和雲端之間的連接是直接連接（AWS）、ExpressRoute（Azure）或雲端互連（GCP），則可以遵循類似的本地遷移工作流程。
+
+下圖說明了從本地到雲端的遷移工作流程。
+
+image:xcp-bp-004.png["此圖顯示輸入/輸出對話框或表示書面內容"]
+
+如果本地和雲端之間沒有直接的互聯網連接，則必須透過卡車等離線資料傳輸方法將資料從本地傳輸到雲端。每個雲端服務提供者都有不同的方法和不同的術語將資料移至他們的資料中心。
+
+下圖描述了不使用 ExpressRoute 的本地到 Azure 的資料移動器解決方案。
+
+image:xcp-bp-005.png["此圖顯示輸入/輸出對話框或表示書面內容"]
+
+您可以使用來自不同雲端服務提供者的具有相應元件的類似架構。

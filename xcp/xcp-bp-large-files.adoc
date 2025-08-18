@@ -1,0 +1,21 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-large-files.html 
+keywords: migrate, large files, rman, ebs, pacemaker 
+summary: '該用例基於電視網路客戶。客戶希望將 Oracle Recovery Manager (RMAN) 備份檔案遷移到雲端中，並使用具有 Pacemaker 軟體的Azure NetApp Files執行 Oracle E-Business Suite (EBS) 應用程式。客戶還希望將其資料庫備份檔案遷移到按需雲端存儲，並將大檔案（每個檔案在 25GB 到 50GB 範圍內）傳輸到 Azure。' 
+---
+= 使用 XCP 資料移動器遷移大文件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+該用例基於電視網路客戶。客戶希望將 Oracle Recovery Manager (RMAN) 備份檔案遷移到雲端中，並使用具有 Pacemaker 軟體的Azure NetApp Files執行 Oracle E-Business Suite (EBS) 應用程式。客戶還希望將其資料庫備份檔案遷移到按需雲端存儲，並將大檔案（每個檔案在 25GB 到 50GB 範圍內）傳輸到 Azure。
+
+下圖說明了從本地到Azure NetApp Files 的大型檔案資料遷移。
+
+有關詳細信息，請參閱 https://blog.netapp.com/XCP-cloud-data-migration["NetApp XCP Data Mover 解決方案：從本機到雲端"^]部落格.

@@ -1,0 +1,38 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-smb-cifs-csv.html 
+keywords: csv, data dump 
+summary: 本節中的命令以 CSV 格式轉儲資料。您可以將大小列相加以獲得資料的總大小。 
+---
+= 從 SMB/CIFS 共用建立 CSV 文件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+以下命令以 CSV 格式轉儲資料。您可以將大小列相加以獲得資料的總大小。
+
+....
+xcp scan -match "((now-x.atime) / 3600) > 31*day" -fmt "'{}, {}, {}, {}'.format(relpath, name, strftime(x.atime, '%y-%m-%d-%H:%M:%S'), humanize_size(size))" -preserve-atime  >file.csv
+....
+輸出應類似此範例：
+
+....
+erase\report_av_fp_cdot_crosstab.csvreport_av_fp_cdot_crosstab.csv20-01-29-10:26:2449.6MiB
+....
+若要掃描最多三個子目錄的深度並按排序順序提供結果，請執行 `xcp -du`指令並轉儲每個目錄層級的大小，直至三個子目錄的深度。
+
+....
+./xcp  scan -du -depth 3 NFS_Server_IP:/source_vol
+ 
+....
+要排序，請將資訊轉儲到 CSV 檔案並對資訊進行排序。
+
+....
+xcp scan -match "type == d" -depth 3 -fmt "'{}, {}, {}, {}'.format(name, relpath, size)" NFS_Server_IP:/share > directory_report.csv
+....
+這是一份自訂報告，使用 `-fmt`命令。它掃描所有目錄並將目錄名稱、路徑和目錄大小轉儲到 CSV 檔案中。您可以從電子表格應用程式中對大小列進行排序。

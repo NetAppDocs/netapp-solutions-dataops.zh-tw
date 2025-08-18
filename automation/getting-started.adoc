@@ -1,0 +1,193 @@
+---
+sidebar: sidebar 
+permalink: automation/getting-started.html 
+summary: NetApp解決方案自動化使客戶能夠自動部署、配置和執行許多常見的基礎架構和應用程式任務。 
+keywords: netapp, awx, tower, ansible tower, solutions, automation, ansible, getting, started 
+---
+= NetApp解決方案自動化入門
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp解決方案自動化為NetApp解決方案所使用的許多常見任務提供了簡單性和可重複性。
+
+在運行任何解決方案自動化之前，必須配置環境以確定如何執行自動化。可以選擇從命令列或透過 AWX 或 Tower 等工具運行自動化。
+
+以下部分將概述為每個指定環境配置環境所需的步驟。
+
+.在 RHEL / CentOS 上為 CLI 部署設定 Ansible 控制節點
+[%collapsible%open]
+====
+. Ansible 控制節點的要求：
++
+.. 安裝了以下軟體包的 RHEL/CentOS 機器：
++
+... Python3
+... Pip3
+... Ansible（版本高於 2.10.0）
+... Git
+
+
+
+
+
+
+如果您有一台新的 RHEL/CentOS 機器，但沒有安裝上述要求，請依照下列步驟將機器設定為 Ansible 控制節點：
+
+. 為 RHEL-8/RHEL-7 啟用 Ansible 儲存庫
++
+.. 對於 RHEL-8（以 root 身分執行以下命令）
++
+[source, cli]
+----
+subscription-manager repos --enable ansible-2.9-for-rhel-8-x86_64-rpms
+----
+.. 對於 RHEL-7（以 root 身分執行以下命令）
++
+[source, cli]
+----
+subscription-manager repos --enable rhel-7-server-ansible-2.9-rpms
+----
+
+
+. 將以下內容貼到終端機中
++
+[source, cli]
+----
+sudo yum -y install python3 >> install.log
+sudo yum -y install python3-pip >> install.log
+python3 -W ignore -m pip --disable-pip-version-check install ansible >> install.log
+sudo yum -y install git >> install.log
+----
+
+
+====
+.在 Ubuntu / Debian 上為 CLI 部署設定 Ansible 控制節點
+[%collapsible%open]
+====
+. Ansible 控制節點的要求：
++
+.. 安裝了以下軟體包的 Ubuntu/Debian 機器：
++
+... Python3
+... Pip3
+... Ansible（版本高於 2.10.0）
+... Git
+
+
+
+
+
+
+如果您有一台新的 Ubuntu/Debian 機器，但沒有安裝上述要求，請按照以下步驟將機器設定為 Ansible 控制節點：
+
+. 將下面的內容貼到終端機中
++
+[source, cli]
+----
+sudo apt-get -y install python3 >> outputlog.txt
+sudo apt-get -y install python3-pip >> outputlog.txt
+python3 -W ignore -m pip --disable-pip-version-check install ansible >> outputlog.txt
+sudo apt-get -y install git >> outputlog.txt
+----
+
+
+====
+.為 Tower/AWX 部署設定 Ansible Tower 或 AWX
+[%collapsible%open]
+====
+本節介紹在 AWX/Ansible Tower 中設定參數所需的步驟，為使用NetApp自動化解決方案準備環境。
+
+. 配置庫存。
++
+.. 導覽至資源 → 庫存 → 新增，然後按一下新增庫存。
+.. 提供姓名和組織詳細信息，然後按一下「儲存」。
+.. 在庫存頁面中，按一下剛剛建立的庫存資源。
+.. 如果有任何庫存變量，請將其貼到變數欄位中。
+.. 轉到“群組”子選單並點擊“新增”。
+.. 提供群組的名稱，複製群組變數（如有必要），然後按一下「儲存」。
+.. 按一下已建立的群組，前往「主機」子選單，然後按一下「新增主機」。
+.. 提供主機的主機名稱和 IP 位址，貼上主機變數（如有必要），然後按一下「儲存」。
+
+
+. 建立憑證類型。對於涉及ONTAP、Element、VMware 或任何其他基於 HTTPS 的傳輸連線的解決方案，您必須設定憑證類型以符合使用者名稱和密碼條目。
++
+.. 導覽至管理 → 憑證類型並點選新增。
+.. 提供名稱和描述。
+.. 將以下內容貼到輸入配置中：
+
+
+
+
+[listing]
+----
+fields:
+- id: username
+type: string
+label: Username
+- id: password
+type: string
+label: Password
+secret: true
+- id: vsadmin_password
+type: string
+label: vsadmin_password
+secret: true
+----
+. 將以下內容貼到注入器配置中：
+
+
+[listing]
+----
+extra_vars:
+password: '{{ password }}'
+username: '{{ username }}'
+vsadmin_password: '{{ vsadmin_password }}'
+----
+. 配置憑證。
++
+.. 導覽至資源 → 憑證並點選新增。
+.. 輸入姓名和組織詳細資料。
+.. 選擇正確的憑證類型；如果您打算使用標準 SSH 登錄，請選擇 Machine 類型，或選擇您建立的自訂憑證類型。
+.. 輸入其他相應詳細資訊並按一下「儲存」。
+
+
+. 配置項目。
++
+.. 導航至資源 → 項目並點選新增。
+.. 輸入姓名和組織詳細資料。
+.. 選擇 Git 作為原始碼控制憑證類型。
+.. 貼上與特定解決方案對應的原始碼控制 URL（或 git 克隆 URL）。
+.. 或者，如果 Git URL 受到存取控制，請在原始碼控制憑證中建立並附加相應的憑證。
+.. 按一下「Save（儲存）」。
+
+
+. 配置作業模板。
++
+.. 導覽至資源 → 範本 → 新增，然後按一下新增作業範本。
+.. 輸入名稱和描述。
+.. 選擇作業類型；運行根據劇本配置系統，檢查執行劇本的試運行而不實際配置系統。
+.. 為劇本選擇相應的庫存、項目和憑證。
+.. 選擇您想要作為作業範本的一部分運行的劇本。
+.. 通常變數是在運行時貼上的。因此，為了在運行時獲得填充變數的提示，請確保勾選與變數欄位對應的啟動時提示複選框。
+.. 根據需要提供任何其他詳細信息，然後按一下「儲存」。
+
+
+. 啟動作業模板。
++
+.. 導航至資源 → 範本。
+.. 按一下所需的模板，然後按一下啟動。
+.. 如果啟動時出現提示，請填寫任何變量，然後再次按一下「啟動」。
+
+
+
+
+====
+欲了解更多信息，請訪問link:https://netapp.io/2018/10/08/getting-started-with-netapp-and-ansible-install-ansible/["NetApp解決方案自動化與 Ansible 入門"]
+
+若要請求自動化，請填寫link:https://github.com/NetAppDocs/netapp-solutions/issues/new?body=%5BRequest%20Automation%5D%0d%0a%0d%0aSolution%20Name:%20%0d%0aRequest%20Title:%20%0d%0aDescription:%0d%0aSuggestions:&title=Request%20Automation%20-%20["自動化請求表"]。

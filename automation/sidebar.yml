@@ -1,0 +1,14 @@
+---
+section: automation
+title: 解決方案自動化
+entries:
+- title: 介紹
+  url: "/automation/automation-introduction.html"
+- title: 設定自動化環境
+  url: "/automation/getting-started.html"
+- title: 收集 CVO 和連接器部署的先決條件
+  url: "/automation/authentication-tokens.html"
+- title: 使用 Terraform 實現 Cloud Volumes 自動化
+  url: "/automation/cloud-volumes-terraform.html"
+- title: 使用 AWS Lambda 函數Amazon FSx for NetApp ONTAP進行監控並自動調整大小
+  url: "/automation/fsxn-monitoring-resizing.html"

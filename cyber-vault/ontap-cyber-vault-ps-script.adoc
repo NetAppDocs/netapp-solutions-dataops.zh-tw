@@ -1,0 +1,75 @@
+---
+sidebar: sidebar 
+permalink: cyber-vault/ontap-cyber-vault-ps-script.html 
+keywords: Cyber vault, powershell, script, configuration, validation, hardening 
+summary: 這是用於配置、強化和驗證基於ONTAP的網路保險庫的NetApp ONTAP解決方案 
+---
+= 配置、分析、cron腳本
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp創建了一個link:https://github.com/NetApp/ransomeware-cybervault-automation["可以下載的單一腳本"^]並用於配置、驗證和安排網路保險庫關係。
+
+
+
+== 此腳本的作用
+
+* 集群對等連接
+* SVM 對等連接
+* DP 磁碟區創建
+* SnapMirror關係和初始化
+* 強化用於網路保險庫的ONTAP系統
+* 根據傳輸計劃暫停和恢復關係
+* 定期驗證安全設定並產生顯示任何異常的報告
+
+
+
+
+== 如何使用此腳本
+
+link:https://github.com/NetApp/ransomeware-cybervault-automation["下載腳本"^]要使用該腳本，只需按照以下步驟操作：
+
+* 以管理員身分啟動 Windows PowerShell。
+* 導航到包含腳本的目錄。
+* 使用執行腳本 `.\`語法以及必需的參數
+
+
+
+NOTE: 請確保輸入所有資訊。第一次運行（配置模式）時，它將要求提供生產系統和新網路保險庫系統的憑證。之後，它將在系統之間建立 SVM 對等（如果不存在）、磁碟區和SnapMirror並初始化它們。
+
+
+NOTE: Cron 模式可用於安排資料傳輸的靜止和恢復。
+
+
+
+== 操作模式
+
+自動化腳本提供 3 種執行模式 - `configure` ， `analyze`和 `cron`。
+
+[source, powershell]
+----
+if($SCRIPT_MODE -eq "configure") {
+        configure
+    } elseif ($SCRIPT_MODE -eq "analyze") {
+        analyze
+    } elseif ($SCRIPT_MODE -eq "cron") {
+        runCron
+    }
+----
+* 配置 - 執行驗證檢查並將系統配置為隔離。
+* 分析－自動監控和報告功能，向監控群組發送異常和可疑活動的訊息，以確保配置不會偏離。
+* Cron - 為了啟用斷開連接的基礎設施，cron 模式會自動停用 LIF 並停止傳輸關係。
+
+
+傳輸選定卷中的資料需要一些時間，具體取決於系統效能和資料量。
+
+[source, powershell]
+----
+./script.ps1 -SOURCE_ONTAP_CLUSTER_MGMT_IP "172.21.166.157" -SOURCE_ONTAP_CLUSTER_NAME "NTAP915_Src" -SOURCE_VSERVER "svm_NFS" -SOURCE_VOLUME_NAME "Src_RP_Vol01" -DESTINATION_ONTAP_CLUSTER_MGMT_IP "172.21.166.159" -DESTINATION_ONTAP_CLUSTER_NAME "NTAP915_Destn" -DESTINATION_VSERVER "svm_nim_nfs" -DESTINATION_AGGREGATE_NAME "NTAP915_Destn_01_VM_DISK_1" -DESTINATION_VOLUME_NAME "Dst_RP_Vol01_Vault" -DESTINATION_VOLUME_SIZE "5g" -SNAPLOCK_MIN_RETENTION "15minutes" -SNAPLOCK_MAX_RETENTION "30minutes" -SNAPMIRROR_PROTECTION_POLICY "XDPDefault" -SNAPMIRROR_SCHEDULE "5min" -DESTINATION_CLUSTER_USERNAME "admin" -DESTINATION_CLUSTER_PASSWORD "PASSWORD123"
+----

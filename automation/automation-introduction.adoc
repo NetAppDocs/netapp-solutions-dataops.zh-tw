@@ -1,0 +1,34 @@
+---
+sidebar: sidebar 
+permalink: automation/automation-introduction.html 
+summary: NetApp解決方案自動化使客戶能夠自動部署、配置和執行許多常見的基礎架構和應用程式任務。 
+keywords: netapp, solutions, automation, ansible, terraform 
+---
+= NetApp解決方案自動化
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp解決方案自動化使客戶能夠自動部署、配置和執行許多常見的基礎架構和應用程式任務。
+
+
+
+== 介紹
+
+在提供解決方案以應對當今的業務挑戰時， NetApp提供的解決方案具有以下目標：
+
+* 提供經過驗證的部署和設定步驟，
+* 提供易於使用的解決方案，
+* 提供具有可預測結果、易於重複且可在客戶企業範圍內擴展的解決方案部署。
+
+
+為了實現這些目標，至關重要的是，透過自動化簡化透過我們的解決方案交付的基礎架構和/或應用程式的部署和配置。  NetApp致力於透過自動化簡化解決方案的使用。
+
+利用 Red Hat Ansible、HashiCorp Terraform 或 Microsoft Powershell 等開源自動化工具， NetApp解決方案能夠自動執行應用程式部署、雲端設定、設定管理和許多其他常見的 IT 任務。  NetApp 的解決方案利用公開可用的自動化工件 - 並提供NetApp創作的自動化 - 來簡化解決方案的整體部署。
+
+在具有自動化功能的情況下，解決方案附件將引導使用者透過特定的自動化工具完成解決方案或解決方案步驟的自動化流程。

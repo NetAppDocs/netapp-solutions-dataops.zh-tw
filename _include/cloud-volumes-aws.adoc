@@ -1,0 +1,472 @@
+= 
+:allow-uri-read: 
+
+
+[role="tabbed-block"]
+====
+.CVO單節點部署
+--
+.用於在 AWS 上部署NetApp CVO（單節點實例）的 Terraform 設定檔
+本節包含各種 Terraform 設定文件，用於在 AWS（Amazon Web Services）上部署/配置單節點NetApp CVO（Cloud Volumes ONTAP）。
+
+Terraform 文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+.程式
+為了運行模板：
+
+. 克隆存儲庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp/na_cloud_volumes_automation.git
+----
+. 導航到所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 從 CLI 配置 AWS 憑證。
++
+[source, cli]
+----
+    aws configure
+----
++
+** AWS 存取金鑰 ID [無]：accesskey
+** AWS 秘密存取金鑰 [無]：secretkey
+** 預設區域名稱 [無]：us-west-2
+** 預設輸出格式[無]: json
+
+
+. 更新變數值 `vars/aws_cvo_single_node_deployment.tfvar`
++
+
+NOTE: 您可以透過將變數「aws_connector_deploy_bool」值設為 true/false 來選擇部署連接器。
+
+. 初始化 Terraform 儲存庫以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用 terraform verify 指令驗證 terraform 檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 對配置進行試運行，以預覽部署預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.aws_sn" -var-file="vars/aws_cvo_single_node_deployment.tfvars"
+----
+. 運行部署
++
+[source, cli]
+----
+    terraform apply -target="module.aws_sn" -var-file="vars/aws_cvo_single_node_deployment.tfvars"
+----
+
+
+刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+.食譜：
+`Connector`
+
+用於 CVO 部署的NetApp AWS 連接器實例的 Terraform 變數。
+
+[cols="20%, 10%, 70%"]
+|===
+| *姓名* | *類型* | *描述* 
+
+
+| *aws_connector_deploy_bool* | 布林值 | （必要）檢查連接器部署。 
+
+
+| *aws_connector_name* | 細繩 | （必需）雲端管理器連接器的名稱。 
+
+
+| *aws_connector_region* | 細繩 | （必要）將建立 Cloud Manager Connector 的區域。 
+
+
+| *aws_connector_key_name* | 細繩 | （必需）用於連接器實例的密鑰對的名稱。 
+
+
+| *aws_connector_company* | 細繩 | （必填）用戶的公司名稱。 
+
+
+| *aws_connector_instance_type* | 細繩 | （必需）實例的類型（例如，t3.xlarge）。至少需要 4 個 CPU 和 16 GB 記憶體。 
+
+
+| *aws_connector_subnet_id* | 細繩 | （必需）實例的子網路 ID。 
+
+
+| *aws_connector_security_group_id* | 細繩 | （必填）實例的安全性群組ID，多個安全群組可以用“，”分隔。 
+
+
+| *aws_connector_iam_instance_profile_name* | 細繩 | （必需）連接器的實例設定檔的名稱。 
+
+
+| *aws_connector_account_id* | 細繩 | （可選）連接器將與之關聯的NetApp帳戶 ID。如果未提供，Cloud Manager 將使用第一個帳戶。如果不存在帳戶，Cloud Manager 會建立一個新帳戶。您可以在 Cloud Manager 的帳戶標籤中找到帳戶 ID，網址為 https://cloudmanager.netapp.com[]。 
+
+
+| *aws_connector_public_ip_bool* | 布林值 | （可選）指示是否將公用 IP 位址與執行個體關聯。如果未提供，則關聯將根據子網路的配置完成。 
+|===
+`Single Node Instance`
+
+單一NetApp CVO 實例的 Terraform 變數。
+
+[cols="20%, 10%, 70%"]
+|===
+| *姓名* | *類型* | *描述* 
+
+
+| *cvo_名稱* | 細繩 | （必需） Cloud Volumes ONTAP工作環境的名稱。 
+
+
+| *cvo_區域* | 細繩 | （必需）將建立工作環境的區域。 
+
+
+| *cvo_子網路ID* | 細繩 | （必需）將建立工作環境的子網路 ID。 
+
+
+| *cvo_vpc_id* | 細繩 | （可選）將建立工作環境的 VPC ID。如果未提供此參數，則將使用提供的子網路 ID 來計算 VPC。 
+
+
+| *cvo_svm_密碼* | 細繩 | （必要） Cloud Volumes ONTAP的管理員密碼。 
+
+
+| *cvo_writing_speed_state* | 細繩 | （可選） Cloud Volumes ONTAP的寫入速度設定：['NORMAL','HIGH']。預設值為“正常”。 
+|===
+--
+.CVO HA 部署
+--
+.用於在 AWS 上部署NetApp CVO（HA 對）的 Terraform 設定檔
+本節包含各種 Terraform 設定文件，用於在 AWS（Amazon Web Services）上以高可用性對形式部署/配置NetApp CVO（Cloud Volumes ONTAP）。
+
+Terraform 文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+.程式
+為了運行模板：
+
+. 克隆存儲庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp/na_cloud_volumes_automation.git
+----
+. 導航到所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 從 CLI 配置 AWS 憑證。
++
+[source, cli]
+----
+    aws configure
+----
++
+** AWS 存取金鑰 ID [無]：accesskey
+** AWS 秘密存取金鑰 [無]：secretkey
+** 預設區域名稱 [無]：us-west-2
+** 預設輸出格式[無]: json
+
+
+. 更新變數值 `vars/aws_cvo_ha_deployment.tfvars`。
++
+
+NOTE: 您可以透過將變數「aws_connector_deploy_bool」值設為 true/false 來選擇部署連接器。
+
+. 初始化 Terraform 儲存庫以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+      terraform init
+----
+. 使用 terraform verify 指令驗證 terraform 檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 對配置進行試運行，以預覽部署預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.aws_ha" -var-file="vars/aws_cvo_ha_deployment.tfvars"
+----
+. 運行部署
++
+[source, cli]
+----
+    terraform apply -target="module.aws_ha" -var-file="vars/aws_cvo_ha_deployment.tfvars"
+----
+
+
+刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+.食譜：
+`Connector`
+
+用於 CVO 部署的NetApp AWS 連接器實例的 Terraform 變數。
+
+[cols="20%, 10%, 70%"]
+|===
+| *姓名* | *類型* | *描述* 
+
+
+| *aws_connector_deploy_bool* | 布林值 | （必要）檢查連接器部署。 
+
+
+| *aws_connector_name* | 細繩 | （必需）雲端管理器連接器的名稱。 
+
+
+| *aws_connector_region* | 細繩 | （必要）將建立 Cloud Manager Connector 的區域。 
+
+
+| *aws_connector_key_name* | 細繩 | （必需）用於連接器實例的密鑰對的名稱。 
+
+
+| *aws_connector_company* | 細繩 | （必填）用戶的公司名稱。 
+
+
+| *aws_connector_instance_type* | 細繩 | （必需）實例的類型（例如，t3.xlarge）。至少需要 4 個 CPU 和 16 GB 記憶體。 
+
+
+| *aws_connector_subnet_id* | 細繩 | （必需）實例的子網路 ID。 
+
+
+| *aws_connector_security_group_id* | 細繩 | （必填）實例的安全性群組ID，多個安全群組可以用“，”分隔。 
+
+
+| *aws_connector_iam_instance_profile_name* | 細繩 | （必需）連接器的實例設定檔的名稱。 
+
+
+| *aws_connector_account_id* | 細繩 | （可選）連接器將與之關聯的NetApp帳戶 ID。如果未提供，Cloud Manager 將使用第一個帳戶。如果不存在帳戶，Cloud Manager 會建立一個新帳戶。您可以在 Cloud Manager 的帳戶標籤中找到帳戶 ID，網址為 https://cloudmanager.netapp.com[]。 
+
+
+| *aws_connector_public_ip_bool* | 布林值 | （可選）指示是否將公用 IP 位址與執行個體關聯。如果未提供，則關聯將根據子網路的配置完成。 
+|===
+`HA Pair`
+
+HA 對中NetApp CVO 實例的 Terraform 變數。
+
+[cols="20%, 10%, 70%"]
+|===
+| *姓名* | *類型* | *描述* 
+
+
+| *cvo_is_ha* | 布林值 | （可選）指示工作環境是否為 HA 對 [true，false]。預設值為 false。 
+
+
+| *cvo_名稱* | 細繩 | （必需） Cloud Volumes ONTAP工作環境的名稱。 
+
+
+| *cvo_區域* | 細繩 | （必需）將建立工作環境的區域。 
+
+
+| *cvo_node1_subnet_id* | 細繩 | （必需）將建立第一個節點的子網路 ID。 
+
+
+| *cvo_node2_subnet_id* | 細繩 | （必需）將建立第二個節點的子網路 ID。 
+
+
+| *cvo_vpc_id* | 細繩 | （可選）將建立工作環境的 VPC ID。如果未提供此參數，則將使用提供的子網路 ID 來計算 VPC。 
+
+
+| *cvo_svm_密碼* | 細繩 | （必要） Cloud Volumes ONTAP的管理員密碼。 
+
+
+| *cvo_failover_mode* | 細繩 | （可選）對於 HA，HA 對的故障轉移模式：['PrivateIP'，'FloatingIP']。  「PrivateIP」適用於單一可用區域，「FloatingIP」適用於多個可用區域。 
+
+
+| *cvo_mediator_subnet_id* | 細繩 | （可選）對於 HA，這是中介的子網路 ID。 
+
+
+| *cvo_mediator_key_pair_name* | 細繩 | （可選）對於 HA，這是中介實例的金鑰對名稱。 
+
+
+| *cvo_cluster_floating_ip* | 細繩 | （可選）對於 HA FloatingIP，叢集管理浮動 IP 位址。 
+
+
+| *cvo_data_floating_ip* | 細繩 | （可選）對於 HA FloatingIP，資料浮動 IP 位址。 
+
+
+| *cvo_data_floating_ip2* | 細繩 | （可選）對於 HA FloatingIP，資料浮動 IP 位址。 
+
+
+| *cvo_svm_floating_ip* | 細繩 | （可選）對於 HA FloatingIP，SVM 管理浮動 IP 位址。 
+
+
+| *cvo_route_table_ids* | 清單 | （可選）對於 HA FloatingIP，將使用浮動 IP 更新的路由表 ID 清單。 
+|===
+--
+.FSx 部署
+--
+.用於在 AWS 上部署NetApp ONTAP FSx 的 Terraform 設定檔
+本節包含用於在 AWS（Amazon Web Services）上部署/設定NetApp ONTAP FSx 的各種 Terraform 設定檔。
+
+Terraform 文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+.程式
+為了運行模板：
+
+. 克隆存儲庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp/na_cloud_volumes_automation.git
+----
+. 導航到所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 從 CLI 配置 AWS 憑證。
++
+[source, cli]
+----
+    aws configure
+----
++
+** AWS 存取金鑰 ID [無]：accesskey
+** AWS 秘密存取金鑰 [無]：secretkey
+** 預設區域名稱 [無]：us-west-2
+** 預設輸出格式[無]：
+
+
+. 更新變數值 `vars/aws_fsx_deployment.tfvars`
++
+
+NOTE: 您可以透過將變數「aws_connector_deploy_bool」值設為 true/false 來選擇部署連接器。
+
+. 初始化 Terraform 儲存庫以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用 terraform verify 指令驗證 terraform 檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 對配置進行試運行，以預覽部署預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.aws_fsx" -var-file="vars/aws_fsx_deployment.tfvars"
+----
+. 運行部署
++
+[source, cli]
+----
+    terraform apply -target="module.aws_fsx" -var-file="vars/aws_fsx_deployment.tfvars"
+----
+
+
+刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+.食譜：
+`Connector`
+
+NetApp AWS 連接器實例的 Terraform 變數。
+
+[cols="20%, 10%, 70%"]
+|===
+| *姓名* | *類型* | *描述* 
+
+
+| *aws_connector_deploy_bool* | 布林值 | （必要）檢查連接器部署。 
+
+
+| *aws_connector_name* | 細繩 | （必需）雲端管理器連接器的名稱。 
+
+
+| *aws_connector_region* | 細繩 | （必要）將建立 Cloud Manager Connector 的區域。 
+
+
+| *aws_connector_key_name* | 細繩 | （必需）用於連接器實例的密鑰對的名稱。 
+
+
+| *aws_connector_company* | 細繩 | （必填）用戶的公司名稱。 
+
+
+| *aws_connector_instance_type* | 細繩 | （必需）實例的類型（例如，t3.xlarge）。至少需要 4 個 CPU 和 16 GB 記憶體。 
+
+
+| *aws_connector_subnet_id* | 細繩 | （必需）實例的子網路 ID。 
+
+
+| *aws_connector_security_group_id* | 細繩 | （必填）實例的安全性群組ID，多個安全群組可以用“，”分隔。 
+
+
+| *aws_connector_iam_instance_profile_name* | 細繩 | （必需）連接器的實例設定檔的名稱。 
+
+
+| *aws_connector_account_id* | 細繩 | （可選）連接器將與之關聯的NetApp帳戶 ID。如果未提供，Cloud Manager 將使用第一個帳戶。如果不存在帳戶，Cloud Manager 會建立一個新帳戶。您可以在 Cloud Manager 的帳戶標籤中找到帳戶 ID，網址為 https://cloudmanager.netapp.com[]。 
+
+
+| *aws_connector_public_ip_bool* | 布林值 | （可選）指示是否將公用 IP 位址與執行個體關聯。如果未提供，則關聯將根據子網路的配置完成。 
+|===
+`FSx Instance`
+
+NetApp ONTAP FSx 實例的 Terraform 變數。
+
+[cols="20%, 10%, 70%"]
+|===
+| *姓名* | *類型* | *描述* 
+
+
+| *fsx_name* | 細繩 | （必需） Cloud Volumes ONTAP工作環境的名稱。 
+
+
+| *fsx_區域* | 細繩 | （必需）將建立工作環境的區域。 
+
+
+| *fsx_primary_subnet_id* | 細繩 | （必要）將建立工作環境的主子網路 ID。 
+
+
+| *fsx_secondary_subnet_id* | 細繩 | （必要）將建立工作環境的輔助子網路 ID。 
+
+
+| *fsx_account_id* | 細繩 | （必要）FSx 實例將與之關聯的NetApp帳戶 ID。如果未提供，Cloud Manager 將使用第一個帳戶。如果不存在帳戶，Cloud Manager 會建立一個新帳戶。您可以在 Cloud Manager 的帳戶標籤中找到帳戶 ID，網址為 https://cloudmanager.netapp.com[]。 
+
+
+| *fsx_workspace_id* | 細繩 | （必填）工作環境的雲端管理器工作區的 ID。 
+
+
+| *fsx_admin_密碼* | 細繩 | （必要） Cloud Volumes ONTAP的管理員密碼。 
+
+
+| *fsx_throughput_capacity* | 細繩 | （可選）吞吐量的能力。 
+
+
+| *fsx_storage_capacity_size* | 細繩 | （可選）第一個資料聚合的 EBS 磁碟區大小。對於 GB，單位可以是：[100 或 500]。對於 TB，單位可以是：[1,2,4,8,16]。預設值為“1” 
+
+
+| fsx_storage_capacity_size_unit（fsx_storage_capacity_size_unit） | 細繩 | （可選）['GB' 或 'TB']。預設值為“TB”。 
+
+
+| *fsx_cloudmanager_aws_credential_name* | 細繩 | （必需）AWS Credentials 帳戶名稱。 
+|===
+--
+====

@@ -1,0 +1,91 @@
+---
+sidebar: sidebar 
+permalink: cyber-vault/ontap-cyber-vault-ps-overview.html 
+keywords: Cyber vault, powershell, script, configuration, validation, hardening 
+summary: 這是用於配置、強化和驗證基於ONTAP的網路保險庫的NetApp ONTAP解決方案 
+---
+= 使用 PowerShell 的ONTAP Cyber Vault 概述
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+在當今的數位環境中，保護組織的關鍵資料資產不僅是一種最佳實踐，更是業務的當務之急。網路威脅正以前所未有的速度發展，傳統的資料保護措施已不足以確保敏感資訊的安全。這就是網路保險庫的作用所在。 NetApp 基於ONTAP的尖端解決方案將先進的隔離技術與強大的資料保護措施相結合，以創造出抵禦網路威脅的堅不可摧的屏障。透過使用安全強化技術隔離最有價值的數據，網路保險庫可以最大限度地減少攻擊面，從而確保最關鍵的數據在需要時保持機密、完整且隨時可用。
+
+網路保險庫是一種安全的儲存設施，由防火牆、網路和儲存等多層保護組成。這些組件可保護關鍵業務運作所需的重要復原資料。網路保險庫的組件會根據保險庫策略定期與基本生產資料同步，但除此之外仍然無法存取。這種隔離且斷開的設定確保在發生危害生產環境的網路攻擊時，可以輕鬆地從網路保險庫進行可靠的最終恢復。
+
+NetApp透過設定網路、停用 LIF、更新防火牆規則以及將系統與外部網路和網際網路隔離，輕鬆為網路保險庫建立隔離間隙。這種強大的方法有效地將系統與外部網路和互聯網斷開，提供無與倫比的保護，防止遠端網路攻擊和未經授權的存取嘗試，使系統免受基於網路的威脅和入侵。
+
+將此與SnapLock Compliance保護相結合，資料無法被修改或刪除，即使是ONTAP管理員或NetApp支援人員也無法修改或刪除。  SnapLock定期接受 SEC 和 FINRA 法規的審核，確保資料彈性符合銀行業嚴格的 WORM 和資料保留法規。  NetApp是唯一經過 NSA CSfC 驗證可以儲存絕密資料的企業儲存公司。
+
+image:ontap-cyber-vault-logical-air-gap.png["具有不可變且不可磨滅的SnapLock副本的氣隙ONTAP網路保險庫"]
+
+本文檔介紹了 NetApp 的網路保險庫如何從本地ONTAP存儲自動配置到另一個指定的ONTAP存儲，並使用不可變快照增加額外的保護層來防止網路攻擊，從而實現快速恢復。作為此架構的一部分，整個配置均依照ONTAP最佳實務應用。最後一部分介紹了在發生攻擊時執行恢復的說明。
+
+
+NOTE: 同樣的解決方案也適用於使用 FSx ONTAP在 AWS 中建立指定的網路保險庫。
+
+
+
+== 建立ONTAP網路保險庫的高階步驟
+
+* 創建對等關係
++
+** 使用ONTAP儲存的生產站點與指定的網路保管庫ONTAP儲存對等
+
+
+* 創建SnapLock Compliance卷
+* 設定SnapMirror關係和規則以設定標籤
++
+** 已配置SnapMirror關係和適當的計劃
+
+
+* 在啟動SnapMirror （保管庫）傳輸之前設定保留
++
+** 對複製的資料套用保留鎖，進一步防止資料被任何內部人員竊取或資料故障。使用此功能，在保留期到期之前無法刪除數據
+** 組織可以根據自己的需求將這些數據保存幾週/幾個月
+
+
+* 根據標籤初始化SnapMirror關係
++
+** 初始播種和永久增量傳輸根據SnapMirror計劃進行
+** 資料受到SnapLock合規性的保護（不可變且不可刪除），且資料可供恢復
+
+
+* 實施嚴格的資料傳輸控制
++
+** 網路保險庫在有限的時間內解鎖，包含來自生產現場的數據，並與保險庫中的數據同步。傳輸完成後，連線中斷、關閉並再次鎖定
+
+
+* 快速恢復
++
+** 如果生產站點的主要資料受到影響，則網路保險庫中的資料可以安全地恢復到原始生產環境或其他選定的環境
+
+
+
+
+image:ontap-cyber-vault-air-gap.png["建立ONTAP網路保險庫的高階步驟"]
+
+
+
+== 解決方案組件
+
+NetApp ONTAP在來源叢集和目標叢集上執行 9.15.1。
+
+ONTAP One： NetApp ONTAP 的一體化授權。
+
+ONTAP One 授權所使用的功能：
+
+* SnapLock Compliance
+* SnapMirror
+* 多管理員驗證
+* ONTAP提供的所有增強功能
+* 為網路保險庫提供單獨的 RBAC 憑證
+
+
+
+NOTE: 所有ONTAP統一實體陣列均可用於網路保險庫，但基於AFF C 系列容量的快閃記憶體系統和FAS混合快閃記憶體系統是實現此目的最具成本效益的理想平台。請諮詢link:ontap-cyber-vault-sizing.html["ONTAP網路保險庫大小調整"]以獲得尺寸指導。

@@ -1,0 +1,39 @@
+---
+section: ontap-cybervault
+title: 使用ONTAP Cyber Vault 進行資料保護
+pdf-filename: ONTAP網路保險庫
+entries:
+- title: ONTAP Cyber Vault 概述
+  url: "/cyber-vault/ontap-cyber-vault-overview.html"
+- title: 網路保險庫術語
+  url: "/cyber-vault/ontap-cyber-vault-terminology.html"
+- title: ONTAP的網路保險庫大小調整
+  url: "/cyber-vault/ontap-cyber-vault-sizing.html"
+- title: 建立網路保險庫
+  url: "/cyber-vault/ontap-create-cyber-vault-task.html"
+- title: 網路保險庫強化
+  url: "/cyber-vault/ontap-cyber-vault-hardening.html"
+- title: 網路保險庫互通性
+  url: "/cyber-vault/ontap-cyber-vault-interop.html"
+- title: 網路保險庫常見問題解答
+  url: "/cyber-vault/ontap-cyber-vault-faq.html"
+- title: 網路保險庫資源
+  url: "/cyber-vault/ontap-cyber-vault-resources.html"
+- title: 使用 PowerShell 建立、強化和驗證ONTAP網路保管庫
+  entries:
+  - title: 概況
+    url: "/cyber-vault/ontap-cyber-vault-ps-overview.html"
+  - title: 建立網路保險庫
+    url: "/cyber-vault/ontap-cyber-vault-ps-creation.html"
+  - title: 網路保險庫強化
+    url: "/cyber-vault/ontap-cyber-vault-ps-hardening.html"
+  - title: 網路保險庫驗證
+    url: "/cyber-vault/ontap-cyber-vault-ps-validation.html"
+  - title: 網路保險庫資料恢復
+    url: "/cyber-vault/ontap-cyber-vault-ps-dr.html"
+  - title: 其他注意事項
+    url: "/cyber-vault/ontap-cyber-vault-ps-consider.html"
+  - title: 配置、分析、cron腳本
+    url: "/cyber-vault/ontap-cyber-vault-ps-script.html"
+  - title: 網路保險庫結論
+    url: "/cyber-vault/ontap-cyber-vault-ps-conclusion.html"

@@ -1,0 +1,22 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-additional-info.html 
+keywords:  
+summary:  
+---
+= 在哪裡可以找到更多信息
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+要了解有關本文檔中描述的信息的更多信息，請參閱以下文檔和/或網站：
+
+* link:https://blog.netapp.com/tag/netapp-xcp/["NetApp XCP 博客"]
+* link:https://docs.netapp.com/us-en/xcp/["NetApp XCP 文檔"]
+* link:https://docs.netapp.com/us-en/netapp-solutions-ai/data-analytics/bda-ai-introduction.html["大數據分析數據到人工智慧"^]
+

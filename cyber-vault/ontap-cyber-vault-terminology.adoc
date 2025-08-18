@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+keywords: Cyber vault, cybervault, cyber-vault, data protection, security, ransomware, ONTAP, hardening 
+permalink: cyber-vault/ontap-cyber-vault-terminology.html 
+summary: 帶有ONTAP術語的網路保險庫 
+---
+= Cyber Vault ONTAP術語
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+這些是網路保險庫架構中常用的術語。
+
+*自主勒索軟體防護 (ARP)* - 自主勒索軟體防護 (ARP) 功能使用 NAS（NFS 和 SMB）環境中的工作負載分析來主動、即時地偵測並警告可能表明勒索軟體攻擊的異常活動。當懷疑受到攻擊時，ARP 除了現有的計畫 Snapshot 副本保護之外，還會建立新的 Snapshot 副本。有關詳細信息，請參閱link:https://docs.netapp.com/us-en/ontap/anti-ransomware/index.html["ONTAP關於自主勒索軟體防護的文檔"^]
+
+*氣隙（邏輯）* - 您可以利用以下方式將帶有ONTAP的NetApp儲存配置為邏輯氣隙網路保險庫：link:https://docs.netapp.com/us-en/ontap/snaplock/commit-snapshot-copies-worm-concept.html["SnapLock Compliance對 Snapshot 副本進行 WORM 保護"^]
+
+*氣隙（實體）* - 實體氣隙系統沒有網路連線。使用磁帶備份，您可以將影像移動到另一個位置。  SnapLock Compliance邏輯氣隙與實體氣隙系統一樣強大。
+
+*堡壘主機* - 隔離網路上的專用計算機，配置用於抵禦攻擊。
+
+*不可變的 Snapshot 副本* - 無法修改的 Snapshot 副本，無一例外（包括支援組織或對儲存系統進行低階格式化的能力）。
+
+*不可刪除的 Snapshot 副本* - 無法刪除的 Snapshot 副本，無例外（包括支援組織或對儲存系統進行低階格式化的能力）。
+
+*防篡改 Snapshot 副本* - 防篡改 Snapshot 副本使用SnapLock Compliance時脈功能將 Snapshot 副本鎖定指定時段。任何使用者或NetApp支援人員都無法刪除這些鎖定的快照。如果磁碟區受到勒索軟體攻擊、惡意軟體、駭客、惡意管理員或意外刪除的威脅，您可以使用鎖定的 Snapshot 副本來復原資料。有關詳細信息，請參閱link:https://docs.netapp.com/us-en/ontap/snaplock/snapshot-lock-concept.html["有關防篡改 Snapshot 副本的ONTAP文檔"^]
+
+* SnapLock* - SnapLock是一種高效能合規解決方案，適用於使用 WORM 儲存以未修改的形式保留文件以滿足監管和治理目的的組織。有關更多信息，請參閱link:https://docs.netapp.com/us-en/ontap/snaplock/["有關SnapLock的ONTAP文檔"^] 。
+
+* SnapMirror* - SnapMirror是一種災難復原複製技術，旨在高效複製資料。 SnapMirror可以為本機或雲端中的輔助系統建立鏡像（或資料的精確副本）、保管庫（具有較長 Snapshot 副本保留期的資料副本）或兩者。這些副本可用於許多不同的目的，例如災難、雲端爆發或網路保險庫（使用保險庫策略並鎖定保險庫時）。有關詳細信息，請參閱link:https://docs.netapp.com/us-en/ontap/concepts/snapmirror-disaster-recovery-data-transfer-concept.html["有關SnapMirror的ONTAP文檔"^]
+
+* SnapVault* - 在ONTAP 9.3 中， SnapVault已被棄用，取而代之的是使用 vault 或 mirror-vault 政策配置SnapMirror 。這個術語雖然仍在使用，但也已被貶低。有關更多信息，請參閱link:https://docs.netapp.com/us-en/ontap/concepts/snapvault-archiving-concept.html["有關SnapVault的ONTAP文檔"^] 。

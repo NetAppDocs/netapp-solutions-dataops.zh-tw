@@ -88,7 +88,7 @@ rpcinfo -p < NAS IP or on-prem nfs data LIF ip >
 .. 下載許可證並做好準備。
 
 
-. 為每個 Azure NetApp區或雲端中的雲端磁碟區服務（進階服務等級）在本機建立一個 NFS 共用，用於 XCP 目錄。
+. 為每個 Azure NetApp磁碟區或在Google Cloud NetApp Volumes為 XCP 目錄建立本機 NFS 共用（進階服務等級）。
 . 建立 NAS 卷並配置資料目標的共用。
 . 對於多個 XCP 實例，您必須有一個或多個伺服器或雲端實例才能將資料從多個來源資料夾或檔案傳輸到目標。
 . maxdir 大小（預設值為 308MB）定義了單一資料夾中的最大檔案數（約一百萬）。增加 maxdir 大小值以增加檔案數量。增加該值會對額外的 CPU 週期產生影響。

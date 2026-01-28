@@ -890,7 +890,6 @@
   <block id="469f9932f3c6cca10f7c8ab6fc82d6e1" category="list-text">建立駐留在新 IP 空間中的新 SVM。</block>
   <block id="b43e377130ea68e28f57b5e451375083" category="list-text">確保防火牆路由策略配置正確，並且所有規則都定期審核並根據需要更新。</block>
   <block id="e24611533a2b571534bc7f9a71e39703" category="section-title">ONTAP CLI 或透過自動化腳本</block>
-  <block id="60a3dbbbd6a8ea76d9bf56aa0d6395d1" category="list-text">使用多重管理員驗證 (MFA) 保護管理</block>
   <block id="9b98a3da00d9a9709cdf9496422e8479" category="list-text">啟用集群之間「傳輸中」的標準資料加密。</block>
   <block id="cbe61f355ee5cc94da340a9c3272475b" category="list-text">使用強加密密碼保護 SSH 並強制使用安全密碼。</block>
   <block id="16c72d280102d2756d84bf9ae14b3379" category="list-text">啟用全域 FIPS。</block>
@@ -1521,4 +1520,5 @@
   <block id="acf055fa7efae33ce06471f448ae1267" category="sidebar">客戶場景</block>
   <block id="c5071cdf8081474104ef1eee5ec6d784" category="sidebar">使用 ACL 將 CIFS 資料從來源儲存箱遷移到ONTAP</block>
   <block id="212969b8fbef38a460a102c0de1dc0a4" category="list-text">為每個 Azure NetApp磁碟區或在Google Cloud NetApp Volumes為 XCP 目錄建立本機 NFS 共用（進階服務等級）。</block>
+  <block id="61d7195d08cf43ed625cea7335343a3d" category="list-text">除了多因素身份驗證（MFA）之外，還透過多管理員驗證（MAV）來保護管理，從而增強對資料儲存 VM 的管理存取的安全性。</block>
 </blocks>

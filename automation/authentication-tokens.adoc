@@ -18,12 +18,14 @@ keywords: netapp, solutions, automation, ansible
 
 
 
+[[aws-authentication-requirements-for-cvo-and-connector-using-netapp-cloud-manager]]
 == 使用NetApp Cloud Manager 的 CVO 和連接器的 AWS 驗證需求
 
 要透過 AWX/Ansible Tower 使用 Ansible 劇本設定 CVO 和連接器的自動部署，需要以下資訊：
 
 
 
+[[acquiring-accesssecret-keys-from-aws]]
 === 從 AWS 取得存取/金鑰
 
 . 要在 Cloud Manager 中部署 CVO 和連接器，我們需要 AWS 存取/金鑰。透過啟動 IAM-->使用者-->您的使用者名稱-->安全憑證-->建立存取金鑰來取得 AWS 控制台中的金鑰。
@@ -37,6 +39,7 @@ image:access-keys.png["刷新令牌"]
 
 
 
+[[acquiring-refresh-token-from-netapp-cloud-central]]
 === 從NetApp Cloud Central 取得刷新令牌
 
 . 使用您的帳戶憑證登入您的雲端中心帳戶 https://services.cloud.netapp.com/refresh-token[]
@@ -47,6 +50,7 @@ image:token-authentication.png["刷新令牌"]
 
 
 
+[[acquiring-client-id]]
 === 取得客戶端ID
 
 . 存取 API 頁面複製客戶端 ID https://services.cloud.netapp.com/developer-hub[] 。
@@ -58,6 +62,7 @@ image:client-id.png["客戶端 ID"]
 
 
 
+[[acquiring-key-pair-from-aws]]
 === 從AWS取得密鑰對
 
 . 在AWS控制台中，搜尋“密鑰對”並使用“pem”建立密鑰對。記住您的 key_pair 的名稱，我們將使用它來部署連接器。
@@ -67,6 +72,7 @@ image:key-pair.png["密鑰對"]
 
 
 
+[[acquiring-account-id]]
 === 取得帳戶ID
 
 . 在雲端管理員中，按一下帳戶 –> 管理帳戶，然後複製帳戶 ID 以供 AWX 變數使用。

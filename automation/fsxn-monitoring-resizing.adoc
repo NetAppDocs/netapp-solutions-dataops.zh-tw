@@ -18,6 +18,7 @@ summary: 本頁介紹了監控 AWS FSx ONTAP和根據閾值自動調整大小的
 
 
 
+[[overview-monitoring-and-auto-resizing-fsx-ontap-via-aws-lambda-function]]
 == 概述：透過 AWS Lambda 函數監控和自動調整 FSx ONTAP
 
 FSx ONTAP是 AWS 上的第一方企業級雲端儲存服務，它基於流行的NetApp ONTAP檔案系統構建，提供高度可靠、可擴展、高效且功能豐富的文件儲存。
@@ -72,10 +73,12 @@ image:fsxn-monitoring-resizing-architecture.png["該圖描述了該解決方案�
 ====
 
 
+[[solution-deployment]]
 == 解決方案部署
 
 
 
+[[automated-deployment]]
 === 自動部署
 
 
@@ -168,6 +171,7 @@ image:fsxn-monitoring-resizing-email-002.png["此圖顯示了有通知時收到�
 ====
 
 
+[[manual-deployment]]
 === 手動部署
 
 
@@ -396,6 +400,7 @@ image:fsxn-monitoring-resizing-eventbridge.png["此圖描繪了 AWS Lambda 函�
 ====
 
 
+[[conclusion]]
 == 結論
 
 透過提供的解決方案，可以輕鬆設定監控解決方案，定期監控 FSx ONTAP存儲，根據使用者指定的閾值調整其大小並提供警報機制。這使得使用和監控 FSx ONTAP的流程變得無縫，使管理員可以專注於關鍵業務活動，同時儲存空間會在需要時自動成長。

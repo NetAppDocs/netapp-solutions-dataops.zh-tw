@@ -18,6 +18,7 @@ summary: 本文檔包含有關NetApp ONTAP網路保險庫解決方案的常見�
 
 
 
+[[what-is-a-netapp-cyber-vault]]
 == 什麼是NetApp網路保險庫？
 
 網路保險庫是一種特定的資料保護技術，涉及將資料儲存在與主要 IT 基礎設施分開的隔離環境中。
@@ -30,6 +31,7 @@ summary: 本文檔包含有關NetApp ONTAP網路保險庫解決方案的常見�
 
 
 
+[[netapps-approach-to-cyber-vault]]
 == NetApp 的網路保險庫方法
 
 NetApp網路保險庫由SnapLock提供支持，為組織提供全面且靈活的解決方案來保護其最關鍵的資料資產。透過利用ONTAP中的強化技術， NetApp讓您能夠建立一個安全、隔離且氣隙封閉的網路保險庫，以抵禦不斷演變的網路威脅。透過NetApp，您可以確保資料的機密性、完整性和可用性，同時保持儲存基礎架構的靈活性和效率。
@@ -44,6 +46,7 @@ NetApp網路保險庫參考架構的主要功能包括：
 
 
 
+[[cyber-vault-frequently-asked-questions]]
 == 網路保險庫常見問題解答
 
 .cyber vault 是NetApp的產品嗎？

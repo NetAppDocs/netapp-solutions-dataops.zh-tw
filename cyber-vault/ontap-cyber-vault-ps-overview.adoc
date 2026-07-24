@@ -31,6 +31,7 @@ NOTE: 同樣的解決方案也適用於使用 FSx ONTAP在 AWS 中建立指定�
 
 
 
+[[high-level-steps-to-create-a-ontap-cyber-vault]]
 == 建立ONTAP網路保險庫的高階步驟
 
 * 創建對等關係
@@ -72,6 +73,7 @@ image:ontap-cyber-vault-air-gap.png["建立ONTAP網路保險庫的高階步驟"]
 
 
 
+[[solution-components]]
 == 解決方案組件
 
 NetApp ONTAP在來源叢集和目標叢集上執行 9.15.1。

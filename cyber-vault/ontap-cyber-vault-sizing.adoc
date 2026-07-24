@@ -18,6 +18,7 @@ summary: 協助確定ONTAP網路保險庫大小的指南
 
 
 
+[[performance-sizing-considerations]]
 == 性能大小考慮因素
 
 . 源平台型號有哪些（FAS v AFF A 系列 v AFF C 系列）？
@@ -33,6 +34,7 @@ summary: 協助確定ONTAP網路保險庫大小的指南
 
 
 
+[[sizing-examples]]
 === 尺寸範例
 
 以下是不同網路保險庫配置的範例。
@@ -41,6 +43,7 @@ image:ontap-cyber-vault-sizing.png["網路保險庫配置選項"]
 
 
 
+[[capacity-sizing-considerations]]
 == 容量大小考慮因素
 
 ONTAP Cyber Vault 目標磁碟區所需的磁碟空間量取決於多種因素，其中最重要的是來源磁碟區中資料的變化率。目標磁碟區上的備份計畫和快照計畫都會影響目標磁碟區上的磁碟使用情況，而來源磁碟區上的變更率可能不會保持恆定。最好提供額外的儲存容量緩衝區，以滿足未來最終用戶或應用程式行為變化的需求。

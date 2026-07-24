@@ -18,6 +18,7 @@ NetApp創建了一個link:https://github.com/NetApp/ransomeware-cybervault-autom
 
 
 
+[[what-this-script-does]]
 == 此腳本的作用
 
 * 集群對等連接
@@ -31,6 +32,7 @@ NetApp創建了一個link:https://github.com/NetApp/ransomeware-cybervault-autom
 
 
 
+[[how-to-use-this-script]]
 == 如何使用此腳本
 
 link:https://github.com/NetApp/ransomeware-cybervault-automation["下載腳本"^]要使用該腳本，只需按照以下步驟操作：
@@ -48,6 +50,7 @@ NOTE: Cron 模式可用於安排資料傳輸的靜止和恢復。
 
 
 
+[[modes-of-operation]]
 == 操作模式
 
 自動化腳本提供 3 種執行模式 - `configure` ， `analyze`和 `cron`。

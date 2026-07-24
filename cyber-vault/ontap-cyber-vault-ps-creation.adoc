@@ -18,6 +18,7 @@ summary: 這是用於配置、強化和驗證基於ONTAP的網路保險庫的Net
 
 
 
+[[pre-requisites]]
 == 先決條件
 
 在開始執行本文檔下一部分中的步驟之前，請確保滿足以下先決條件：
@@ -39,6 +40,7 @@ NOTE: Cyber vault 叢集可以與來源資料位於相同或不同的資料中�
 
 
 
+[[steps-to-create-a-ontap-cyber-vault]]
 == 建立ONTAP網路保險庫的步驟
 
 . 使用ONTAP CLI 或系統管理員初始化合規時脈。

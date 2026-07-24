@@ -15,6 +15,7 @@ summary: 與資料保護和安全相關的附加技術報告。
 
 
 
+[[nva-1143-netapp-hci-nist-security-controls-for-fisma-with-hytrust-for-multitenant-infrastructure-nva-design-and-deployment]]
 == NVA-1143： NetApp HCI - NIST 針對 FISMA 的安全控制以及針對多租戶基礎架構的 HyTrust - NVA 設計和部署
 
 Arvind Ramakrishnan、Abhinav Singh、 NetApp
@@ -25,6 +26,7 @@ link:https://www.netapp.com/pdf.html?item=/media/17065-nva1143pdf.pdf["NVA-1143�
 
 
 
+[[tr-4320-netapp-e-series-and-commvault-data-platform-v11-reference-architecture-and-storage-best-practices]]
 == TR-4320： NetApp E 系列和 Commvault 資料平台 V11 - 參考架構和儲存最佳實踐
 
 Akash Gupta、 NetApp Girish Chanchlani、Commvault
@@ -35,6 +37,7 @@ link:https://www.netapp.com/pdf.html?item=/media/17042-tr4320pdf.pdf["TR-4320：
 
 
 
+[[tr-4471-e-series-and-ef-series-reference-architecture-and-storage-best-practices-with-veeam-backup-replication-9-5]]
 == TR-4471：E 系列和 EF 系列參考架構以及 Veeam Backup & Replication 9.5 的儲存最佳實踐
 
 Akash Gupta， NetApp Shawn Lieu（美洲）、Stefan Renner（歐洲、中東和非洲）和 Michael Cade（表演），Veeam
@@ -45,6 +48,7 @@ link:https://www.netapp.com/pdf.html?item=/media/17159-tr4471pdf.pdf["TR-4471：
 
 
 
+[[tr-4704-deploying-veritas-netbackup-with-netapp-e-series-storage]]
 == TR-4704：使用NetApp E 系列儲存部署 Veritas NetBackup
 
 Akash Gupta 和 Principled Technologies， NetApp

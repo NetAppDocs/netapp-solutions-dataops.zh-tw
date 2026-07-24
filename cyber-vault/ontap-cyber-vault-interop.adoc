@@ -18,6 +18,7 @@ ONTAP硬體和軟體可用於建立網路保險庫配置。
 
 
 
+[[ontap-hardware-recommendations]]
 == ONTAP硬體建議
 
 所有ONTAP統一實體陣列均可用於網路保險庫實作。
@@ -29,6 +30,7 @@ ONTAP硬體和軟體可用於建立網路保險庫配置。
 
 
 
+[[ontap-software-recommendations]]
 == ONTAP軟體建議
 
 從ONTAP 9.14.1 開始，您可以在SnapMirror關係的SnapMirror政策中為特定SnapMirror標籤指定保留期，以便從來源磁碟區到目標磁碟區複製的 Snapshot 副本保留規則中指定的保留期。如果未指定保留期，則使用目標磁碟區的預設保留期。
@@ -37,6 +39,7 @@ ONTAP硬體和軟體可用於建立網路保險庫配置。
 
 
 
+[[metrocluster-configuration]]
 == MetroCluster配置
 
 對於MetroCluster配置，您應該注意以下事項：

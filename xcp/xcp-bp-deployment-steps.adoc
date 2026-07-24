@@ -18,6 +18,7 @@ summary: 本節介紹用於資料傳輸的NetApp XCP 的部署步驟。
 
 
 
+[[test-bed-details]]
 == 試驗台細節
 
 下表提供了用於此部署和效能驗證的測試平台的詳細資訊。
@@ -56,6 +57,7 @@ summary: 本節介紹用於資料傳輸的NetApp XCP 的部署步驟。
 |===
 
 
+[[deployment-steps-nas]]
 == 部署步驟 - NAS
 
 若要部署NetApp XCP 進行資料傳輸，請先在目標位置安裝並啟動 XCP 軟體。您可以在 https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=63064["NetApp XCP 使用者指南"^]。為此，請完成以下步驟：
@@ -234,12 +236,14 @@ NOTE: Windows 客戶應使用存取控制清單 (ACL) 複製資料。 NetApp建�
 
 
 
+[[deployment-steps-hdfsmaprfs-data-migration]]
 == 部署步驟 - HDFS/MapRFS 資料遷移
 
 在本節中，我們討論新的 XCP 功能“Hadoop 檔案系統資料傳輸到 NAS”，它將資料從 HDFS/MapRFS 遷移到 NFS，反之亦然。
 
 
 
+[[prerequisites]]
 === 先決條件
 
 對於 MapRFS/HDFS 功能，您必須在非 root 使用者環境中執行下列步驟。通常非 root 使用者是 hdfs、mapr 或有權限在 HDFS 和 MapRFS 檔案系統中進行更改的使用者。
@@ -272,6 +276,7 @@ export NHDFS_LIBHDFS_PATH=$HADOOP_HOME/lib64/libhdfs.so
 
 
 
+[[deployment-steps-non-root-user-migrates-hdfsmaprfs-data-to-netapp-nfs]]
 === 部署步驟 - 非 root 使用者將 HDFS/MaprFS 資料移轉到NetApp NFS
 
 . 請依照部署部分步驟 1-9 中提到的相同步驟進行操作。

@@ -22,6 +22,7 @@ image:xcp-bp-003.png["此圖顯示輸入/輸出對話框或表示書面內容"]
 
 
 
+[[on-premises]]
 == 本地
 
 從任何 NAS 到NetApp NAS 的遷移工作流程包括以下步驟：
@@ -36,6 +37,7 @@ image:xcp-bp-003.png["此圖顯示輸入/輸出對話框或表示書面內容"]
 
 
 
+[[cloud]]
 == 雲端
 
 對於雲，如果本地和雲端之間的連接是直接連接（AWS）、ExpressRoute（Azure）或雲端互連（GCP），則可以遵循類似的本地遷移工作流程。

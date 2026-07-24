@@ -20,10 +20,12 @@ ONTAP提供了一組控制措施，可以強化ONTAP儲存。使用link:https://
 
 
 
+[[hardening-best-practices]]
 == 強化最佳實踐
 
 
 
+[[manual-steps]]
 === 手動步驟
 
 . 建立具有預先定義和自訂管理角色的指定使用者。
@@ -34,6 +36,7 @@ ONTAP提供了一組控制措施，可以強化ONTAP儲存。使用link:https://
 
 
 
+[[ontap-cli-or-via-automation-script]]
 === ONTAP CLI 或透過自動化腳本
 
 . 除了多因素身份驗證（MFA）之外，還透過多管理員驗證（MAV）來保護管理，從而增強對資料儲存 VM 的管理存取的安全性。

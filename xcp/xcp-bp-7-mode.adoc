@@ -18,6 +18,7 @@ summary: 本節提供將資料從以 7 模式運行的NetApp Data ONTAP遷移到
 
 
 
+[[transitioning-7-mode-nfsv3-storage-to-ontap-for-nfs-data]]
 == 將 7 模式 NFSv3 儲存過渡到ONTAP以用於 NFS 數據
 
 本節提供了下表中將來源 7-模式 NFSv3 導出過渡到ONTAP系統的逐步過程。
@@ -410,6 +411,7 @@ Sending statistics...
 
 
 
+[[transitioning-7-mode-volume-snapshot-copies-to-ontap]]
 == 將 7-模式磁碟區 Snapshot 副本過渡到ONTAP
 
 本節介紹將來源 7-模式磁碟區NetApp Snapshot 副本過渡到ONTAP的過程。
@@ -797,6 +799,7 @@ xcp: resume '7msnap_res1': Values marked with a * include operations before resu
 
 
 
+[[migrating-aclv4-from-netapp-7-mode-to-a-netapp-storage-system]]
 == 將 ACLv4 從NetApp 7-模式遷移到NetApp儲存系統
 
 本節介紹將來源 NFSv4 導出過渡到ONTAP系統的逐步過程。
@@ -806,6 +809,7 @@ NOTE: NetApp假定來源 NFSv4 磁碟區已匯出並安裝在用戶端系統上�
 
 
 
+[[prerequisites-for-migrating-a-source-nfsv4-export-to-ontap]]
 === 將來源 NFSv4 導出移轉到ONTAP 的前提條件
 
 將來源 NFSv4 匯出移轉到ONTAP之前，必須滿足以下先決條件：
@@ -833,6 +837,7 @@ drwxr-xr-x --- root root 4KiB 4KiB 17m43s vol1/DIR1/DIR11/DIR2/DIR22
 ....
 
 
+[[subdirectories-options]]
 === 子目錄選項
 
 使用子目錄的兩個選項如下：
@@ -1251,6 +1256,7 @@ xcp: resume 'id1': Values marked with a * include operations before resume
 
 
 
+[[transitioning-7-mode-smb-storage-to-ontap-for-cifs-data]]
 == 將 7-模式 SMB 儲存過渡到ONTAP以用於 CIFS 數據
 
 本節介紹將來源 7-模式 SMB 共享過渡到ONTAP系統的逐步過程。

@@ -18,6 +18,7 @@ summary: 本頁介紹了使用 terraform 在雲端提供者（AWS、Azure、GCP�
 
 
 
+[[pre-requisites]]
 == 先決條件
 
 . Terraform >= 0.13
@@ -28,12 +29,14 @@ summary: 本頁介紹了使用 terraform 在雲端提供者（AWS、Azure、GCP�
 
 
 
+[[provider-documentation]]
 == 提供者文檔
 
 Cloud Manager 的 Terraform 提供者文件可在以下位置找到：link:https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs["https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs"]
 
 
 
+[[controlling-the-provider-version]]
 === 控制提供者版本
 
 請注意，您也可以控制提供者版本。這由 Terraform 配置中的 required_providers 區塊控制。
@@ -55,6 +58,7 @@ terraform {
 
 
 
+[[running-specific-modules]]
 == 運行特定模組
 
 .AWS

@@ -18,6 +18,7 @@ summary: 建議採取其他措施來強化ONTAP的網路保險庫
 
 
 
+[[cyber-vault-hardening-recommendations]]
 == 網路保險庫強化建議
 
 * 隔離網路保險庫的管理平面

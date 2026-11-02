@@ -33,7 +33,7 @@ Akash Gupta、 NetApp Girish Chanchlani、Commvault
 
 TR-4320 概述了在 Commvault 資料平台 V11 環境中使用NetApp E 系列儲存時的參考架構和最佳實務。  Commvault 和NetApp共同開發了此參考架構，為使用NetApp E 系列儲存的 Commvault 資料平台 V11 部署提供指導，從而加快此解決方案的應用時間。
 
-link:https://www.netapp.com/pdf.html?item=/media/17042-tr4320pdf.pdf["TR-4320： NetApp E 系列和 Commvault 資料平台 V11 - 參考架構和儲存最佳實踐"^]
+link:https://www.netapp.com/pdf.html?item=/media/17042-tr4320.pdf["TR-4320： NetApp E 系列和 Commvault 資料平台 V11 - 參考架構和儲存最佳實踐"^]
 
 
 
@@ -44,7 +44,7 @@ Akash Gupta， NetApp Shawn Lieu（美洲）、Stefan Renner（歐洲、中東�
 
 TR-4471 概述了在 Veeam Backup & Replication 9.5 環境中使用NetApp E 系列儲存時的參考架構和最佳實務。
 
-link:https://www.netapp.com/pdf.html?item=/media/17159-tr4471pdf.pdf["TR-4471：E 系列和 EF 系列參考架構以及 Veeam Backup  Replication 9.5 的儲存最佳實踐"^]
+link:https://www.netapp.com/pdf.html?item=/media/17159-tr4471.pdf["TR-4471：E 系列和 EF 系列參考架構以及 Veeam Backup  Replication 9.5 的儲存最佳實踐"^]
 
 
 
@@ -55,4 +55,4 @@ Akash Gupta 和 Principled Technologies， NetApp
 
 TR-4704 描述了在NetApp E 系列儲存上部署 Veritas NetBackup。
 
-link:https://www.netapp.com/pdf.html?item=/media/16433-tr-4704pdf.pdf["TR-4704：使用NetApp E 系列儲存部署 Veritas NetBackup"^]
+link:https://www.netapp.com/pdf.html?item=/media/16433-tr-4704.pdf["TR-4704：使用NetApp E 系列儲存部署 Veritas NetBackup"^]

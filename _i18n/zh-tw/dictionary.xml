@@ -684,7 +684,6 @@
   <block id="645198fb2e03205a7f761aeaff8ef26f" category="inline-link-macro">NetApp解決方案自動化與 Ansible 入門</block>
   <block id="4e9de62bec55cb82f4c1cd06fda641ec" category="paragraph">欲了解更多信息，請訪問<block ref="8306967267ef07392858b509a9329df9" category="inline-link-macro-rx"></block></block>
   <block id="8ad7837dca490e02340e5510135b8589" category="inline-link-macro">自動化請求表</block>
-  <block id="02e0e745ea83a0b975796e4741d478b8" category="paragraph">若要請求自動化，請填寫<block ref="cb4462fd8f35840b40d613c14df7645c" category="inline-link-macro-rx"></block>。</block>
   <block id="79954394076a66945903422060c4d147" category="summary">本頁包含的步驟將協助您建立基於ONTAP 的網路保險庫解決方案</block>
   <block id="ccdb43ad79994581f29c244aafca268c" category="doc">使用ONTAP建立網路保險庫</block>
   <block id="50ff0c4edfe97bd6906d70c7ad767db5" category="paragraph">以下步驟將有助於使用ONTAP建立網路保險庫。</block>
@@ -1067,16 +1066,13 @@
   <block id="23b69f42a62554346d10d302e32866df" category="paragraph">Akash Gupta、 NetApp Girish Chanchlani、Commvault</block>
   <block id="451f1cdad20049e4046b157a54826db1" category="paragraph">TR-4320 概述了在 Commvault 資料平台 V11 環境中使用NetApp E 系列儲存時的參考架構和最佳實務。  Commvault 和NetApp共同開發了此參考架構，為使用NetApp E 系列儲存的 Commvault 資料平台 V11 部署提供指導，從而加快此解決方案的應用時間。</block>
   <block id="b5132c157b5da84909699e1aad5ea13d" category="inline-link-macro">TR-4320： NetApp E 系列和 Commvault 資料平台 V11 - 參考架構和儲存最佳實踐</block>
-  <block id="65c8e697e97b6ce1bd59d8334eaaab6f" category="paragraph"><block ref="65c8e697e97b6ce1bd59d8334eaaab6f" category="inline-link-macro-rx"></block></block>
   <block id="849bdf40e7fa0e2cab1cb845682e6f56" category="section-title">TR-4471：E 系列和 EF 系列參考架構以及 Veeam Backup &amp; Replication 9.5 的儲存最佳實踐</block>
   <block id="febdd047851001456a2f0c683cfcfd2b" category="paragraph">Akash Gupta， NetApp Shawn Lieu（美洲）、Stefan Renner（歐洲、中東和非洲）和 Michael Cade（表演），Veeam</block>
   <block id="3bad2cd66e539f0136fbf484133914dd" category="paragraph">TR-4471 概述了在 Veeam Backup &amp; Replication 9.5 環境中使用NetApp E 系列儲存時的參考架構和最佳實務。</block>
   <block id="f86686bed105d7053fbb06167a05f38e" category="inline-link-macro">TR-4471：E 系列和 EF 系列參考架構以及 Veeam Backup &amp; Replication 9.5 的儲存最佳實踐</block>
-  <block id="8a9473d2b45da95a2d08524f5b182c4d" category="paragraph"><block ref="30941a222a593c860776bbf0831d36d0" category="inline-link-macro-rx"></block></block>
   <block id="f0a30c2a34036665913459cc735f4786" category="section-title">TR-4704：使用NetApp E 系列儲存部署 Veritas NetBackup</block>
   <block id="d223d0d947999082ea93b57a68b3614b" category="paragraph">Akash Gupta 和 Principled Technologies， NetApp</block>
   <block id="9c993f8d3d3aa7be9c86474635154c12" category="paragraph">TR-4704 描述了在NetApp E 系列儲存上部署 Veritas NetBackup。</block>
-  <block id="7ff53b7713dd7f38a4729f8a1a48f24e" category="paragraph"><block ref="7ff53b7713dd7f38a4729f8a1a48f24e" category="inline-link-macro-rx"></block></block>
   <block id="e22b4cfabd54ac34f636ba227f9e63f3" category="summary">NetApp資料管理解決方案附件的近期變更日誌。</block>
   <block id="ee9b834576787c7b5bf70f767336cc2a" category="doc">NetApp資料管理解決方案的新功能</block>
   <block id="d32acb669b8cc0767086c8f950cbb1a5" category="paragraph">了解資料管理解決方案的新功能。</block>
@@ -1304,7 +1300,6 @@
   <block id="1cd06f171a5a99926a67bd673014f765" category="paragraph">XCP 文件提供了多種選項（帶有範例）<block ref="53aefec08170b2ebed981a0a86d0dbe0" prefix=" " category="inline-code"></block> ，<block ref="12cba3ee81cf4a793796a51b6327c678" prefix=" " category="inline-code"></block> ，<block ref="63ad9d34f3503826e5f649ae6b7ac92c" prefix=" " category="inline-code"></block> ， 和<block ref="e8418d1d706cd73548f9f16f1d55ad6e" prefix=" " category="inline-code"></block>營運.有關詳細信息，請參閱<block ref="ae77d8ba86ab9e3027c314c6b4922595" category="inline-link-rx"></block>。</block>
   <block id="efa146517859e051c07fabac4c88d3e7" category="admonition">Windows 客戶應使用存取控制清單 (ACL) 複製資料。 NetApp建議使用指令<block ref="1b5d03dc1e4b5c3623897fd210394888" prefix=" " category="inline-code"></block>。為了獲得最佳效能，考慮到來源磁碟區具有帶有 ACL 的 SMB 資料以及可由 NFS 和 SMB 存取的數據，目標必須是 NTFS 磁碟區。使用 XCP（NFS 版本），從 Linux 伺服器複製資料並與<block ref="4332bdcfbd72db6a4dae51bd101af3d6" prefix=" " category="inline-code"></block>和<block ref="0e638f18c7569b1e062f20f430b0a5fc" prefix=" " category="inline-code"></block>Windows 伺服器選項將 ACL 從來源資料複製到目標 SMB 資料。</block>
   <block id="85760de676a9f74f28f26115c39c9a0b" category="inline-link">配置“管理審計和安全性日誌”策略</block>
-  <block id="a0251b301ad566d86ffa3916c5510295" category="paragraph">詳細步驟請參見<block ref="06fdba77988da3047baf401e4fdefca5" category="inline-link-rx"></block>。</block>
   <block id="0957326f089aaf98a5b7b9110a2675cd" category="section-title">部署步驟 - HDFS/MapRFS 資料遷移</block>
   <block id="1f43fc63f63aad0b707e06b0753182a1" category="paragraph">在本節中，我們討論新的 XCP 功能“Hadoop 檔案系統資料傳輸到 NAS”，它將資料從 HDFS/MapRFS 遷移到 NFS，反之亦然。</block>
   <block id="ee68e5b99222bbc29a480fcb0d1d6ee2" category="section-title">先決條件</block>
@@ -1521,4 +1516,9 @@
   <block id="c5071cdf8081474104ef1eee5ec6d784" category="sidebar">使用 ACL 將 CIFS 資料從來源儲存箱遷移到ONTAP</block>
   <block id="212969b8fbef38a460a102c0de1dc0a4" category="list-text">為每個 Azure NetApp磁碟區或在Google Cloud NetApp Volumes為 XCP 目錄建立本機 NFS 共用（進階服務等級）。</block>
   <block id="61d7195d08cf43ed625cea7335343a3d" category="list-text">除了多因素身份驗證（MFA）之外，還透過多管理員驗證（MAV）來保護管理，從而增強對資料儲存 VM 的管理存取的安全性。</block>
+  <block id="8cbb26daa2814b121bc0187f41d2aa49" category="paragraph">要申請自動化，請填寫<block ref="d6d30ca71a829656960b3c2afe5d3977" category="inline-link-macro-rx"></block>。</block>
+  <block id="ca741a1e5f4824bdceff5803b8e568e2" category="paragraph"><block ref="ca741a1e5f4824bdceff5803b8e568e2" category="inline-link-macro-rx"></block></block>
+  <block id="9e04934e2b5f8155e913240186c62981" category="paragraph"><block ref="e2f985c362d1ae2cbcacb384126f0b8a" category="inline-link-macro-rx"></block></block>
+  <block id="80055df86a3c2b11ad0dfb840b88ecf3" category="paragraph"><block ref="80055df86a3c2b11ad0dfb840b88ecf3" category="inline-link-macro-rx"></block></block>
+  <block id="2691288a52cb10d2ef1865e2cda3c957" category="paragraph">如需詳細步驟，請參閱<block ref="f740fe36a9dcef71f194f30f8caa8d00" category="inline-link-rx"></block>。</block>
 </blocks>

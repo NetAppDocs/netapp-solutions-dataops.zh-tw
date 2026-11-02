@@ -232,7 +232,7 @@ XCP 文件提供了多種選項（帶有範例） `scan` ， `copy` ， `sync` �
 
 NOTE: Windows 客戶應使用存取控制清單 (ACL) 複製資料。 NetApp建議使用指令 `xcp copy -acl -fallbackuser\<username> -fallbackgroup\<username or groupname> <source> <destination>`。為了獲得最佳效能，考慮到來源磁碟區具有帶有 ACL 的 SMB 資料以及可由 NFS 和 SMB 存取的數據，目標必須是 NTFS 磁碟區。使用 XCP（NFS 版本），從 Linux 伺服器複製資料並與 `-acl`和 `-nodata`Windows 伺服器選項將 ACL 從來源資料複製到目標 SMB 資料。
 
-詳細步驟請參見 https://helpcenter.netwrix.com/NA/Configure_IT_Infrastructure/Accounts/DCA_Manage_Auditing_Security_Log.html["配置“管理審計和安全性日誌”策略"^]。
+如需詳細步驟，請參閱 https://docs.netwrix.com/docs/1secure/admin/datacollection/activedirectoryauditing/manageauditingsecuritylog["配置“管理審計和安全性日誌”策略"^]。
 
 
 
